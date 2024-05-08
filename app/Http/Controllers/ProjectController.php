@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -14,13 +15,22 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|ResponseFactory
+    public function index(Request $request): Response|ResponseFactory
     {
 
         $query = Project::query();
+
+        if ($request->name) {
+            $query->where("name", "like", "%" . $request->name . "%");
+        }
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
         $projects = $query->paginate(10)->onEachSide(1);
         return inertia("Project/Index", [
             'projects' => ProjectResource::collection($projects),
+            'queryParams' => $request->query
 
         ]);
     }
