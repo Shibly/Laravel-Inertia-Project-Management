@@ -8,6 +8,7 @@ export default forwardRef(function SelectInput({
     const input = ref ? ref : useRef();
 
     return (
+
         <select
             {...props}
             className={
