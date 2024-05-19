@@ -32,59 +32,78 @@ export default function Show({auth, success, project, tasks, queryParams}) {
                             />
                         </div>
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <div className="grid gap-1 grid-cols-2 mt-2">
-                                <div>
-                                    <div>
-                                        <label className="font-bold text-lg">Project ID</label>
-                                        <p className="mt-1">{project.id}</p>
-                                    </div>
-                                    <div className="mt-4">
-                                        <label className="font-bold text-lg">Project Name</label>
-                                        <p className="mt-1">{project.name}</p>
-                                    </div>
-
-                                    <div className="mt-4">
-                                        <label className="font-bold text-lg">Project Status</label>
-                                        <p className="mt-1">
-                      <span
-                          className={
-                              "px-2 py-1 rounded text-white " +
-                              PROJECT_STATUS_CLASS_MAP[project.status]
-                          }
-                      >
-                        {PROJECT_STATUS_TEXT_MAP[project.status]}
-                      </span>
-                                        </p>
-                                    </div>
-                                    <div className="mt-4">
-                                        <label className="font-bold text-lg">Created By</label>
-                                        <p className="mt-1">{project.createdBy.name}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <label className="font-bold text-lg">Due Date</label>
-                                        <p className="mt-1">{project.due_date}</p>
-                                    </div>
-                                    <div className="mt-4">
-                                        <label className="font-bold text-lg">Create Date</label>
-                                        <p className="mt-1">{project.created_at}</p>
-                                    </div>
-                                    <div className="mt-4">
-                                        <label className="font-bold text-lg">Updated By</label>
-                                        <p className="mt-1">{project.updatedBy.name}</p>
-                                    </div>
-                                </div>
+                            <div className="grid gap-6 grid-cols-2">
+                                <table
+                                    className="min-w-full divide-y divide-gray-200 border border-gray-300 dark:border-gray-700">
+                                    <tbody>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Project
+                                            ID
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.id}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Project
+                                            Name
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Project
+                                            Status
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">
+                                    <span
+                                        className={
+                                            "px-2 py-1 rounded text-white " +
+                                            PROJECT_STATUS_CLASS_MAP[project.status]
+                                        }
+                                    >
+                                        {PROJECT_STATUS_TEXT_MAP[project.status]}
+                                    </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Created
+                                            By
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.createdBy.name}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table
+                                    className="min-w-full divide-y divide-gray-200 border border-gray-300 dark:border-gray-700">
+                                    <tbody>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Due
+                                            Date
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.due_date}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Create
+                                            Date
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.created_at}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Updated
+                                            By
+                                        </td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.updatedBy.name}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-
-                            <div className="mt-4">
+                            <div className="mt-8">
                                 <label className="font-bold text-lg">Project Description</label>
-                                <p className="mt-1">{project.description}</p>
+                                <p className="mt-2">{project.description}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div className="pb-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
