@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -42,12 +43,13 @@ class ProjectController extends Controller
         ]);
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * @return Response|ResponseFactory
      */
-    public function create()
+    public function create(): Response|ResponseFactory
     {
-        //
+        return inertia('Project/Create');
     }
 
     /**
@@ -63,7 +65,25 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+
+        $query = $project->tasks();
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "desc");
+
+        if (request("name")) {
+            $query->where("name", "like", "%" . request("name") . "%");
+        }
+        if (request("status")) {
+            $query->where("status", request("status"));
+        }
+
+
+        $tasks = $query->orderBy($sortField, $sortDirection)->paginate(10)->onEachSide(1);
+        return inertia('Project/Show', [
+            'project' => new ProjectResource($project),
+            'tasks' => TaskResource::collection($tasks),
+            'queryParams' => request()->query() ?: null
+        ]);
     }
 
     /**
