@@ -8,6 +8,7 @@ use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -57,7 +58,16 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+
+        $data = $request->validated();
+        $image = $data['image'] ?? null;
+        $data['created_by'] = auth()->user()->id;
+        $data['updated_by'] = auth()->user()->id;
+        if ($image) {
+            $data['image_path'] = $image->store('projects/' . Str::random(), 'public');
+        }
+        Project::create($data);
+        return to_route('project.index')->with('success', 'Project created successfully.');
     }
 
     /**
