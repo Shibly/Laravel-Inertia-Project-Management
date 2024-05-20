@@ -176,19 +176,22 @@ export default function TasksTable({
                             <td className="px-3 py-2 text-nowrap">{task.due_date}</td>
                             <td className="px-3 py-2">{task.createdBy.name}</td>
                             <td className="px-3 py-2 text-nowrap">
-                                <Link
-                                    href={route("task.edit", task.id)}
-                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
-                                >
-                                    Edit
-                                </Link>
-                                <button
-                                    onClick={(e) => deleteTask(task)}
-                                    className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                                >
-                                    Delete
-                                </button>
+                                <div className="flex space-x-2">
+                                    <Link
+                                        href={route("task.edit", task.id)}
+                                        className="w-full px-4 py-2 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700"
+                                    >
+                                        Edit
+                                    </Link>
+                                    <button
+                                        onClick={(e) => deleteTask(task)}
+                                        className="w-full px-4 py-2 bg-red-500 text-white text-center font-medium rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </td>
+
                         </tr>
                     ))}
                     </tbody>
