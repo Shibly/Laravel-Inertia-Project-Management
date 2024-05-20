@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use App\Models\Project;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -136,11 +136,20 @@ class ProjectController extends Controller
     public function destroy(Project $project): RedirectResponse
     {
         $name = $project->name;
+
+        // Delete all associated tasks
+        $project->tasks()->delete();
+
+        // Delete the project
         $project->delete();
+
+        // Delete project image directory if exists
         if ($project->image_path) {
             Storage::disk('public')->deleteDirectory(dirname($project->image_path));
         }
+
         return to_route('project.index')
             ->with('success', "Project \"$name\" was deleted");
     }
+
 }

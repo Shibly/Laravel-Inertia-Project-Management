@@ -2,10 +2,7 @@ import Pagination from "@/Components/Pagination";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import {
-    PROJECT_STATUS_CLASS_MAP,
-    PROJECT_STATUS_TEXT_MAP,
-} from "@/constants.jsx";
+import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP,} from "@/constants.jsx";
 import {Head, Link, router} from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
 
@@ -48,7 +45,7 @@ export default function Index({auth, projects, queryParams = null, success}) {
     const deleteProject = (project) => {
         MySwal.fire({
             title: 'Are you sure?',
-            text: "Do you really want to delete the project?",
+            text: "Do you really want to delete the project? Deleting the project will delete all the associated tasks as well.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it',

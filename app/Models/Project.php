@@ -33,4 +33,17 @@ class Project extends Model
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
+
+
+    /**
+     * @return void
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::deleting(function ($project) {
+            $project->tasks()->delete();
+        });
+    }
+
 }
