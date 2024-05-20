@@ -6,10 +6,14 @@ import {
     PROJECT_STATUS_CLASS_MAP,
     PROJECT_STATUS_TEXT_MAP,
 } from "@/constants.jsx";
-import { Head, Link, router } from "@inertiajs/react";
+import {Head, Link, router} from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
 
-export default function Index({ auth, projects, queryParams = null, success }) {
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+export default function Index({auth, projects, queryParams = null, success}) {
     queryParams = queryParams || {};
     const searchFieldChanged = (name, value) => {
         if (value) {
@@ -42,11 +46,21 @@ export default function Index({ auth, projects, queryParams = null, success }) {
     };
 
     const deleteProject = (project) => {
-        if (!window.confirm("Are you sure you want to delete the project?")) {
-            return;
-        }
-        router.delete(route("project.destroy", project.id));
+        MySwal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete the project?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it',
+            cancelButtonText: 'No, cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("project.destroy", project.id));
+            }
+        });
     };
+
 
     return (
         <AuthenticatedLayout
@@ -65,7 +79,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                 </div>
             }
         >
-            <Head title="Projects" />
+            <Head title="Projects"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -77,8 +91,10 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <div className="overflow-auto">
-                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
+                                <table
+                                    className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead
+                                        className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                                     <tr className="text-nowrap">
                                         <TableHeading
                                             name="id"
@@ -128,7 +144,8 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                         <th className="px-3 py-3 text-right">Actions</th>
                                     </tr>
                                     </thead>
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
+                                    <thead
+                                        className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                                     <tr className="text-nowrap">
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
@@ -171,7 +188,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                         >
                                             <td className="px-3 py-2">{project.id}</td>
                                             <td className="px-3 py-2">
-                                                <img src={project.image_path} style={{ width: 60 }} />
+                                                <img src={project.image_path} style={{width: 60}}/>
                                             </td>
                                             <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
                                                 <Link href={route("project.show", project.id)}>
@@ -214,7 +231,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                     </tbody>
                                 </table>
                             </div>
-                            <Pagination links={projects.meta.links} />
+                            <Pagination links={projects.meta.links}/>
                         </div>
                     </div>
                 </div>
