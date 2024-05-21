@@ -179,8 +179,7 @@ export default function TasksTable({
                                 <div className="flex space-x-2">
                                     <Link
                                         href={route("task.edit", task.id)}
-                                        className="w-full px-4 py-2 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700"
-                                    >
+                                        className="w-full px-4 py-2 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
                                         Edit
                                     </Link>
                                     <button
