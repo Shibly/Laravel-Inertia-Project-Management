@@ -2,10 +2,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import {Head, Link, useForm} from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Create({auth, user}) {
-    const {data, setData, post, errors, reset} = useForm({
+export default function Create({ auth, user }) {
+    const { data, setData, post, errors, reset } = useForm({
         name: user.name || "",
         email: user.email || "",
         password: "",
@@ -13,12 +13,8 @@ export default function Create({auth, user}) {
         _method: "PUT",
     });
 
-
-
-
     const onSubmit = (e) => {
         e.preventDefault();
-
         post(route("user.update", user.id));
     };
 
@@ -33,7 +29,7 @@ export default function Create({auth, user}) {
                 </div>
             }
         >
-            <Head title="Users"/>
+            <Head title="Users" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -43,7 +39,7 @@ export default function Create({auth, user}) {
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_name" value="User Name"/>
+                                <InputLabel htmlFor="user_name" value="User Name" />
 
                                 <TextInput
                                     id="user_name"
@@ -55,10 +51,10 @@ export default function Create({auth, user}) {
                                     onChange={(e) => setData("name", e.target.value)}
                                 />
 
-                                <InputError message={errors.name} className="mt-2"/>
+                                <InputError message={errors.name} className="mt-2" />
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_email" value="User Email"/>
+                                <InputLabel htmlFor="user_email" value="User Email" />
 
                                 <TextInput
                                     id="user_email"
@@ -69,11 +65,11 @@ export default function Create({auth, user}) {
                                     onChange={(e) => setData("email", e.target.value)}
                                 />
 
-                                <InputError message={errors.email} className="mt-2"/>
+                                <InputError message={errors.email} className="mt-2" />
                             </div>
 
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_password" value="Password"/>
+                                <InputLabel htmlFor="user_password" value="Password" />
 
                                 <TextInput
                                     id="user_password"
@@ -84,7 +80,7 @@ export default function Create({auth, user}) {
                                     onChange={(e) => setData("password", e.target.value)}
                                 />
 
-                                <InputError message={errors.password} className="mt-2"/>
+                                <InputError message={errors.password} className="mt-2" />
                             </div>
 
                             <div className="mt-4">
@@ -116,8 +112,7 @@ export default function Create({auth, user}) {
                                 >
                                     Cancel
                                 </Link>
-                                <button
-                                    className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
+                                <button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
                                     Submit
                                 </button>
                             </div>
