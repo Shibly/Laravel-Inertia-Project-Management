@@ -87,6 +87,25 @@ export default function Index({auth, projects, queryParams = null, success}) {
                     )}
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
+                            <div className="mb-4 flex justify-between">
+                                <TextInput
+                                    className="w-1/2 mr-2"
+                                    defaultValue={queryParams.name}
+                                    placeholder="Project Name"
+                                    onBlur={(e) => searchFieldChanged("name", e.target.value)}
+                                    onKeyPress={(e) => onKeyPress("name", e)}
+                                />
+                                <SelectInput
+                                    className="w-1/2"
+                                    defaultValue={queryParams.status}
+                                    onChange={(e) => searchFieldChanged("status", e.target.value)}
+                                >
+                                    <option value="">Select Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </SelectInput>
+                            </div>
                             <div className="overflow-auto">
                                 <table
                                     className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -141,42 +160,6 @@ export default function Index({auth, projects, queryParams = null, success}) {
                                         <th className="px-3 py-3 text-right">Actions</th>
                                     </tr>
                                     </thead>
-                                    <thead
-                                        className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
-                                    <tr className="text-nowrap">
-                                        <th className="px-3 py-3"></th>
-                                        <th className="px-3 py-3"></th>
-                                        <th className="px-3 py-3">
-                                            <TextInput
-                                                className="w-full"
-                                                defaultValue={queryParams.name}
-                                                placeholder="Project Name"
-                                                onBlur={(e) =>
-                                                    searchFieldChanged("name", e.target.value)
-                                                }
-                                                onKeyPress={(e) => onKeyPress("name", e)}
-                                            />
-                                        </th>
-                                        <th className="px-3 py-3 w-full">
-                                            <SelectInput
-                                                className="w-full"
-                                                defaultValue={queryParams.status}
-                                                onChange={(e) =>
-                                                    searchFieldChanged("status", e.target.value)
-                                                }
-                                            >
-                                                <option value="">Select Status</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="in_progress">In Progress</option>
-                                                <option value="completed">Completed</option>
-                                            </SelectInput>
-                                        </th>
-                                        <th className="px-3 py-3"></th>
-                                        <th className="px-3 py-3"></th>
-                                        <th className="px-3 py-3"></th>
-                                        <th className="px-3 py-3"></th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     {projects.data.map((project) => (
                                         <tr
@@ -193,14 +176,14 @@ export default function Index({auth, projects, queryParams = null, success}) {
                                                 </Link>
                                             </th>
                                             <td className="px-3 py-2">
-                          <span
-                              className={
-                                  "px-2 py-1 rounded text-white " +
-                                  PROJECT_STATUS_CLASS_MAP[project.status]
-                              }
-                          >
-                            {PROJECT_STATUS_TEXT_MAP[project.status]}
-                          </span>
+                      <span
+                          className={
+                              "px-2 py-1 rounded text-white " +
+                              PROJECT_STATUS_CLASS_MAP[project.status]
+                          }
+                      >
+                        {PROJECT_STATUS_TEXT_MAP[project.status]}
+                      </span>
                                             </td>
                                             <td className="px-3 py-2 text-nowrap">
                                                 {project.created_at}
@@ -224,8 +207,6 @@ export default function Index({auth, projects, queryParams = null, success}) {
                                                     </button>
                                                 </div>
                                             </td>
-
-
                                         </tr>
                                     ))}
                                     </tbody>
@@ -237,5 +218,6 @@ export default function Index({auth, projects, queryParams = null, success}) {
                 </div>
             </div>
         </AuthenticatedLayout>
+
     );
 }

@@ -22,6 +22,7 @@ class ProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'number_of_tasks' => $this->tasks()->count(),
             'name' => $this->name,
             'description' => $this->description,
             'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),

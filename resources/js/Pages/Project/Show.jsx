@@ -37,10 +37,10 @@ export default function Show({auth, success, project, tasks, queryParams}) {
                                     className="min-w-full divide-y divide-gray-200 border border-gray-300 dark:border-gray-700">
                                     <tbody>
                                     <tr>
-                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Project
-                                            ID
+                                        <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">
+                                            Number of tasks
                                         </td>
-                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.id}</td>
+                                        <td className="border-b border-gray-300 dark:border-gray-700 p-2">{project.number_of_tasks}</td>
                                     </tr>
                                     <tr>
                                         <td className="font-bold text-lg border-b border-gray-300 dark:border-gray-700 p-2">Project

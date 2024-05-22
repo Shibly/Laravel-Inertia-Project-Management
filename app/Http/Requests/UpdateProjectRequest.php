@@ -28,7 +28,7 @@ class UpdateProjectRequest extends FormRequest
             'image' => ['nullable', 'image'],
             'description' => ['nullable', 'string'],
             'due_date' => ['nullable', 'date'],
-            'status' => ['required', Rule::in(['pending', 'in_progress_', 'completed'])]
+            'status' => ['required', Rule::in(['pending', 'in_progress', 'completed'])]
         ];
     }
 }
