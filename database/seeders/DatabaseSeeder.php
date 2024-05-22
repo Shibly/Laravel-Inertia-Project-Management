@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,6 +27,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class
         ]);
 
-        Project::factory()->count(60)->hasTasks(60)->create();
+        // Project::factory()->count(60)->hasTasks(60)->create();
     }
 }
