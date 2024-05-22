@@ -6,4 +6,6 @@ Ability to calculate payment based on time log
 Calendar
 Dashboard widgets
 
+Ability to add comments on tasks
+
 

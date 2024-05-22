@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOptionRequest;
 use App\Http\Requests\UpdateOptionRequest;
 use App\Models\Option;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response|ResponseFactory
     {
-        //
+        return inertia("Settings/Index", [
+            'options' => Option::all(),
+        ]);
     }
 
     /**
