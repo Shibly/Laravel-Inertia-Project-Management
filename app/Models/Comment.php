@@ -23,7 +23,7 @@ class Comment extends Model
     /**
      * @return BelongsTo
      */
-    public function task()
+    public function task(): BelongsTo
     {
         return $this->belongsTo(Task::class);
     }
