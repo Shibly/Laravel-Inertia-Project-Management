@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import {Link} from '@inertiajs/react';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({user, header, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const hasStandardRole = user && user.roles && user.roles.includes('admin');
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -16,7 +17,8 @@ export default function Authenticated({ user, header, children }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                                    <ApplicationLogo
+                                        className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>
                                 </Link>
                             </div>
 
@@ -25,11 +27,16 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
+                            {hasStandardRole && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                     <NavLink href={route('project.index')} active={route().current('project.index')}>
-                                    Projects
-                                </NavLink>
-                            </div>
+                                        Projects
+                                    </NavLink>
+                                </div>
+                            )}
+
+
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('task.index')} active={route().current('task.index')}>
                                     All Tasks
@@ -38,6 +45,11 @@ export default function Authenticated({ user, header, children }) {
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('user.index')} active={route().current('user.index')}>
                                     Users
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href="">
+                                    Application Settings
                                 </NavLink>
                             </div>
                         </div>

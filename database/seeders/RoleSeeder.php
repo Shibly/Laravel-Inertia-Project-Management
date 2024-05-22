@@ -17,9 +17,10 @@ class RoleSeeder extends Seeder
         $role_standard_user = Role::create(['name' => 'standard']);
 
 
-        $permission_create_user = Permission::create([
-            'name' => 'create user'
+        $permission_manage_users = Permission::create([
+            'name' => 'manage users'
         ]);
+
 
         $permission_edit_user = Permission::create([
             'name' => 'edit user'
@@ -29,8 +30,8 @@ class RoleSeeder extends Seeder
             'name' => 'delete user'
         ]);
 
-        $permission_create_project = Permission::create([
-            'name' => 'create project'
+        $permission_manage_projects = Permission::create([
+            'name' => 'manage projects'
         ]);
 
         $permission_edit_project = Permission::create([
@@ -42,15 +43,15 @@ class RoleSeeder extends Seeder
         ]);
 
 
-        $permissions_admin = [$permission_create_user,
+        $permissions_admin = [$permission_manage_users,
             $permission_edit_user,
             $permission_delete_user,
-            $permission_create_project,
+            $permission_manage_projects,
             $permission_edit_project,
             $permission_delete_project];
 
 
-        $permissions_general_user = [$permission_create_project, $permission_edit_project, $permission_delete_project];
+        $permissions_general_user = [$permission_manage_projects, $permission_edit_project, $permission_delete_project];
 
 
         $role_admin->syncPermissions($permissions_admin);

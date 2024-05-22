@@ -21,9 +21,9 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
             ],
             [
-                'name' => 'John Dor',
-                'email' => 'johndoe@gmail.com',
-                'password' => '123456789',
+                'name' => 'James Anik',
+                'email' => 'james_anik@yahoo.com',
+                'password' => '12345678',
                 'email_verified_at' => time(),
                 'role' => 'standard',
             ]

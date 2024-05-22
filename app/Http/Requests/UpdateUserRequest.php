@@ -35,7 +35,7 @@ class UpdateUserRequest extends FormRequest
             "password" => [
                 'nullable',
                 'confirmed',
-                Password::min(8)->letters()->symbols(),
+                Password::min(8)->letters()->numbers(),
             ],
         ];
     }

@@ -17,6 +17,7 @@ use Inertia\ResponseFactory;
 
 class ProjectController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -33,6 +34,12 @@ class ProjectController extends Controller
         if (request("status")) {
             $query->where("status", request("status"));
         }
+
+
+        /**
+         * Pass permission to react component
+         */
+
 
         $projects = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)

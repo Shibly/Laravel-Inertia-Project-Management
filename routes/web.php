@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('task', TaskController::class);
     Route::resource('user', UserController::class);
 
+
+
+
 });
 
 Route::middleware('auth')->group(function () {
