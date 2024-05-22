@@ -1,0 +1,9 @@
+Roles: Super admin , standard user
+Need Task board trello style
+Ability to add milestone
+Ability to log time
+Ability to calculate payment based on time log
+Calendar
+Dashboard widgets
+
+

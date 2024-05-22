@@ -29,9 +29,9 @@ export default function Show({auth, task}) {
             <div className="py-12 bg-gray-800">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
-                        <div>
-                            <img src={task.image_path} alt="" className="w-full h-64 object-cover rounded-t-lg"/>
-                        </div>
+                        {/*<div>*/}
+                        {/*    <img src={task.image_path} alt="" className="w-full h-64 object-cover rounded-t-lg"/>*/}
+                        {/*</div>*/}
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <table className="min-w-full table-auto">
                                 <tbody>
