@@ -96,9 +96,11 @@ class ProjectController extends Controller
             $query->where("status", request("status"));
         }
 
+
         $tasks = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)
             ->onEachSide(1);
+
         return inertia('Project/Show', [
             'project' => new ProjectResource($project),
             "tasks" => TaskResource::collection($tasks),

@@ -25,7 +25,7 @@ class UpdateTaskRequest extends FormRequest
     {
         return [
             "name" => ['required', 'max:255'],
-            'image' => ['nullable', 'image'],
+            'task_attachment' => ['nullable', 'file'],
             "description" => ['nullable', 'string'],
             'due_date' => ['nullable', 'date'],
             'project_id' => ['required', 'exists:projects,id'],

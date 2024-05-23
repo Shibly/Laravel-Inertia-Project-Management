@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
 use App\Models\Project;
 use App\Models\Task;
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -64,21 +65,24 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreTaskRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        /** @var $image UploadedFile */
-        $image = $data['image'] ?? null;
+        /** @var $attachment UploadedFile */
+        $attachment = $data['task_attachment'] ?? null;
         $data['created_by'] = Auth::id();
         $data['updated_by'] = Auth::id();
-        if ($image) {
-            $data['image_path'] = $image->store('task/' . Str::random(), 'public');
+
+        if ($attachment) {
+            $data['attachment_path'] = $attachment->store('task_attachments/' . Str::random(), 'public');
         }
+
         Task::create($data);
 
         return to_route('task.index')
             ->with('success', 'Task was created');
     }
+
 
     /**
      * Display the specified resource.
@@ -108,27 +112,30 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
     {
         $data = $request->validated();
-        $image = $data['image'] ?? null;
+        $attachment = $data['task_attachment'] ?? null;
         $data['updated_by'] = Auth::id();
-        if ($image) {
-            if ($task->image_path) {
-                Storage::disk('public')->deleteDirectory(dirname($task->image_path));
+
+        if ($attachment) {
+            if ($task->task_attachment) {
+                Storage::disk('public')->delete($task->task_attachment);
             }
-            $data['image_path'] = $image->store('task/' . Str::random(), 'public');
+            $data['task_attachment'] = $attachment->store('tasks/' . Str::random(10), 'public');
         }
+
         $task->update($data);
 
         return to_route('task.index')
-            ->with('success', "Task \"$task->name\" was updated");
+            ->with('success', "Task \"{$task->name}\" was updated");
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task): \Illuminate\Http\RedirectResponse
+    public function destroy(Task $task): RedirectResponse
     {
         $name = $task->name;
         $task->delete();

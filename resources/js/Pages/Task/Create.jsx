@@ -8,7 +8,7 @@ import {Head, Link, useForm} from "@inertiajs/react";
 
 export default function Create({auth, projects, users}) {
     const {data, setData, post, errors, reset} = useForm({
-        image: "",
+        task_attachment: "",
         name: "",
         status: "",
         description: "",
@@ -61,15 +61,15 @@ export default function Create({auth, projects, users}) {
                                 <InputError message={errors.project_id} className="mt-2"/>
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="task_image_path" value="Task Image"/>
+                                <InputLabel htmlFor="task_image_path" value="Task Attachment"/>
                                 <TextInput
-                                    id="task_image_path"
+                                    id="task_attachment_path"
                                     type="file"
-                                    name="image"
+                                    name="task_attachment"
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("image", e.target.files[0])}
+                                    onChange={(e) => setData("task_attachment", e.target.files[0])}
                                 />
-                                <InputError message={errors.image} className="mt-2"/>
+                                <InputError message={errors.task_attachment} className="mt-2"/>
                             </div>
                             <div className="mt-4">
                                 <InputLabel htmlFor="task_name" value="Task Name"/>

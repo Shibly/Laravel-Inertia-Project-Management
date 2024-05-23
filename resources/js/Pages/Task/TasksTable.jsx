@@ -13,6 +13,9 @@ export default function TasksTable({
                                    }) {
     queryParams = queryParams || {};
 
+
+    console.log(tasks);
+
     const searchFieldChanged = (name, value) => {
         if (value) {
             queryParams[name] = value;
@@ -95,7 +98,8 @@ export default function TasksTable({
                         >
                             ID
                         </TableHeading>
-                        <th className="px-3 py-3">Image</th>
+
+                        <th className="px-3 py-3">Attachment</th>
                         {!hideProjectColumn && (
                             <th className="px-3 py-3">Project Name</th>
                         )}
@@ -140,8 +144,16 @@ export default function TasksTable({
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={task.id}>
                             <td className="px-3 py-2">{task.id}</td>
                             <td className="px-3 py-2">
-                                <img src={task.image_path} style={{width: 60}} alt="Task"/>
+                                {task.task_attachment ? (
+                                    <a className="text-white" href={task.task_attachment} download={task.task_attachment}
+                                       style={{textDecoration: 'none'}}>
+                                        Download Attachment
+                                    </a>
+                                ) : (
+                                    <span>No Attachment</span>
+                                )}
                             </td>
+
                             {!hideProjectColumn && (
                                 <td className="px-3 py-2">{task.project.name}</td>
                             )}
@@ -178,5 +190,6 @@ export default function TasksTable({
             </div>
             <Pagination links={tasks.meta.links}/>
         </>
-    );
+    )
+        ;
 }

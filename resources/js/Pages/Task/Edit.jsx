@@ -4,11 +4,11 @@ import SelectInput from "@/Components/SelectInput";
 import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import {Head, Link, useForm} from "@inertiajs/react";
 
-export default function Create({ auth, task, projects, users }) {
-    const { data, setData, post, errors, reset } = useForm({
-        image: "",
+export default function Create({auth, task, projects, users}) {
+    const {data, setData, post, errors, reset} = useForm({
+        attachment: "",
         name: task.name || "",
         status: task.status || "",
         description: task.description || "",
@@ -36,7 +36,7 @@ export default function Create({ auth, task, projects, users }) {
                 </div>
             }
         >
-            <Head title="Tasks" />
+            <Head title="Tasks"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -47,11 +47,11 @@ export default function Create({ auth, task, projects, users }) {
                         >
                             {task.image_path && (
                                 <div className="mb-4">
-                                    <img src={task.image_path} className="w-64" />
+                                    <img src={task.image_path} className="w-64"/>
                                 </div>
                             )}
                             <div>
-                                <InputLabel htmlFor="task_project_id" value="Project" />
+                                <InputLabel htmlFor="task_project_id" value="Project"/>
 
                                 <SelectInput
                                     name="project_id"
@@ -68,21 +68,21 @@ export default function Create({ auth, task, projects, users }) {
                                     ))}
                                 </SelectInput>
 
-                                <InputError message={errors.project_id} className="mt-2" />
+                                <InputError message={errors.project_id} className="mt-2"/>
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="task_image_path" value="Task Image" />
+                                <InputLabel htmlFor="task_image_path" value="Task Attachment"/>
                                 <TextInput
-                                    id="task_image_path"
+                                    id="task_attachment_path"
                                     type="file"
-                                    name="image"
+                                    name="attachment"
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("image", e.target.files[0])}
+                                    onChange={(e) => setData("attachment", e.target.files[0])}
                                 />
-                                <InputError message={errors.image} className="mt-2" />
+                                <InputError message={errors.attachment} className="mt-2"/>
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="task_name" value="Task Name" />
+                                <InputLabel htmlFor="task_name" value="Task Name"/>
 
                                 <TextInput
                                     id="task_name"
@@ -94,7 +94,7 @@ export default function Create({ auth, task, projects, users }) {
                                     onChange={(e) => setData("name", e.target.value)}
                                 />
 
-                                <InputError message={errors.name} className="mt-2" />
+                                <InputError message={errors.name} className="mt-2"/>
                             </div>
                             <div className="mt-4">
                                 <InputLabel
@@ -106,14 +106,14 @@ export default function Create({ auth, task, projects, users }) {
                                     id="task_description"
                                     name="description"
                                     value={data.description}
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full min-h-[300px]"
                                     onChange={(e) => setData("description", e.target.value)}
                                 />
 
-                                <InputError message={errors.description} className="mt-2" />
+                                <InputError message={errors.description} className="mt-2"/>
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="task_due_date" value="Task Deadline" />
+                                <InputLabel htmlFor="task_due_date" value="Task Deadline"/>
 
                                 <TextInput
                                     id="task_due_date"
@@ -124,10 +124,10 @@ export default function Create({ auth, task, projects, users }) {
                                     onChange={(e) => setData("due_date", e.target.value)}
                                 />
 
-                                <InputError message={errors.due_date} className="mt-2" />
+                                <InputError message={errors.due_date} className="mt-2"/>
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="task_status" value="Task Status" />
+                                <InputLabel htmlFor="task_status" value="Task Status"/>
 
                                 <SelectInput
                                     name="status"
@@ -142,11 +142,11 @@ export default function Create({ auth, task, projects, users }) {
                                     <option value="completed">Completed</option>
                                 </SelectInput>
 
-                                <InputError message={errors.task_status} className="mt-2" />
+                                <InputError message={errors.task_status} className="mt-2"/>
                             </div>
 
                             <div className="mt-4">
-                                <InputLabel htmlFor="task_priority" value="Task Priority" />
+                                <InputLabel htmlFor="task_priority" value="Task Priority"/>
 
                                 <SelectInput
                                     name="priority"
@@ -161,7 +161,7 @@ export default function Create({ auth, task, projects, users }) {
                                     <option value="high">High</option>
                                 </SelectInput>
 
-                                <InputError message={errors.priority} className="mt-2" />
+                                <InputError message={errors.priority} className="mt-2"/>
                             </div>
 
                             <div className="mt-4">
@@ -198,7 +198,8 @@ export default function Create({ auth, task, projects, users }) {
                                 >
                                     Cancel
                                 </Link>
-                                <button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
+                                <button
+                                    className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
                                     Submit
                                 </button>
                             </div>
