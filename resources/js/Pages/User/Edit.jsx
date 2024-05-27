@@ -2,14 +2,16 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import {Head, Link, useForm} from "@inertiajs/react";
+import SelectInput from "@/Components/SelectInput.jsx";
 
-export default function Create({ auth, user }) {
-    const { data, setData, post, errors, reset } = useForm({
+export default function Create({auth, user, roles}) {
+    const {data, setData, post, errors, reset} = useForm({
         name: user.name || "",
         email: user.email || "",
         password: "",
         password_confirmation: "",
+        role_id: user.role_id || "",
         _method: "PUT",
     });
 
@@ -29,7 +31,7 @@ export default function Create({ auth, user }) {
                 </div>
             }
         >
-            <Head title="Users" />
+            <Head title="Users"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -39,7 +41,7 @@ export default function Create({ auth, user }) {
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_name" value="User Name" />
+                                <InputLabel htmlFor="user_name" value="User Name"/>
 
                                 <TextInput
                                     id="user_name"
@@ -51,10 +53,10 @@ export default function Create({ auth, user }) {
                                     onChange={(e) => setData("name", e.target.value)}
                                 />
 
-                                <InputError message={errors.name} className="mt-2" />
+                                <InputError message={errors.name} className="mt-2"/>
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_email" value="User Email" />
+                                <InputLabel htmlFor="user_email" value="User Email"/>
 
                                 <TextInput
                                     id="user_email"
@@ -65,11 +67,11 @@ export default function Create({ auth, user }) {
                                     onChange={(e) => setData("email", e.target.value)}
                                 />
 
-                                <InputError message={errors.email} className="mt-2" />
+                                <InputError message={errors.email} className="mt-2"/>
                             </div>
 
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_password" value="Password" />
+                                <InputLabel htmlFor="user_password" value="Password"/>
 
                                 <TextInput
                                     id="user_password"
@@ -80,7 +82,7 @@ export default function Create({ auth, user }) {
                                     onChange={(e) => setData("password", e.target.value)}
                                 />
 
-                                <InputError message={errors.password} className="mt-2" />
+                                <InputError message={errors.password} className="mt-2"/>
                             </div>
 
                             <div className="mt-4">
@@ -105,6 +107,35 @@ export default function Create({ auth, user }) {
                                     className="mt-2"
                                 />
                             </div>
+
+                            <div className="mt-4">
+                                <InputLabel
+                                    htmlFor="user_role_select"
+                                    value="Select User Role"
+                                />
+
+                                <SelectInput
+                                    name="role_id"
+                                    id="role_id"
+                                    className="mt-1 block w-full"
+                                    value={data.role_id}
+                                    onChange={(e) => setData("role_id", e.target.value)}
+                                >
+                                    <option value="">Select Role</option>
+                                    {roles.map((role) => (
+                                        <option key={role.id} value={role.id}>
+                                            {role.name}
+                                        </option>
+                                    ))}
+                                </SelectInput>
+
+
+                                <InputError
+                                    message={errors.role_id}
+                                    className="mt-2"
+                                />
+                            </div>
+
                             <div className="mt-4 text-right">
                                 <Link
                                     href={route("user.index")}
@@ -112,7 +143,8 @@ export default function Create({ auth, user }) {
                                 >
                                     Cancel
                                 </Link>
-                                <button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
+                                <button
+                                    className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
                                     Submit
                                 </button>
                             </div>

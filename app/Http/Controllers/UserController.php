@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -84,6 +85,7 @@ class UserController extends Controller
     {
         return inertia('User/Edit', [
             'user' => new UserCrudResource($user),
+            'roles' => Role::all()
         ]);
     }
 
@@ -100,6 +102,15 @@ class UserController extends Controller
             unset($data['password']);
         }
         $user->update($data);
+
+        /**
+         * Now update the user role
+         */
+
+        if (isset($data['role_id'])) {
+            $role = Role::findById($data['role_id']);
+            $user->syncRoles($role);
+        }
 
         return to_route('user.index')
             ->with('success', "User \"$user->name\" was updated");

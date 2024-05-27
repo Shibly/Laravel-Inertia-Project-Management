@@ -162,14 +162,13 @@ export default function Index({auth, users, queryParams = null, success}) {
                                             <td className="px-3 py-2 text-nowrap">
                                                 <div className="flex space-x-2 justify-center">
                                                     <Link
-                                                        href={route("user.edit", user.id)}
-                                                        className="flex-1 px-4 py-2 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
-                                                        Edit
-                                                    </Link>
-                                                    <button
-                                                        onClick={(e) => deleteUser(user)}
-                                                        className="flex-1 px-4 py-2 bg-red-500 text-white text-center font-medium rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
-                                                        Delete
+                                                        className="flex-1 px-4 py-2 bg-green-400 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-green-600 dark:hover:bg-green-700"
+                                                        href="#">Set
+                                                        Permission</Link>
+                                                    <Link href={route("user.edit", user.id)}
+                                                          className="flex-1 px-4 py-2 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">Edit</Link>
+                                                    <button onClick={(e) => deleteUser(user)}
+                                                            className="flex-1 px-4 py-2 bg-red-500 text-white text-center font-medium rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">Delete
                                                     </button>
                                                 </div>
                                             </td>
