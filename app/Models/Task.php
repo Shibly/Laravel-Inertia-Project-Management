@@ -100,8 +100,11 @@ class Task extends Model
     /**
      * @return HasMany
      */
-    public function comments(): HasMany
+
+    public function replies(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Reply::class);
     }
+
+
 }

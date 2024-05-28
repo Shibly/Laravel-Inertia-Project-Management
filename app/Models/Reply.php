@@ -6,18 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Comment extends Model
+class Reply extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'content',
-        'task_id',
-        'user_id'
-    ];
-
-
-    protected $table = 'comments';
+    protected $guarded = [];
+    protected $primaryKey = 'id';
 
 
     /**
@@ -27,4 +21,14 @@ class Comment extends Model
     {
         return $this->belongsTo(Task::class);
     }
+
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'replied_by');
+    }
+
 }
