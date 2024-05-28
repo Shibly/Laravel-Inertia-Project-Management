@@ -29,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/roles', [RolePermissionController::class, 'getRoles'])->name('allRoles');
     Route::get('addRole', [RolePermissionController::class, 'addRole'])->name('addRole');
     Route::post('storeRole', [RolePermissionController::class, 'storeRole'])->name('storeRole');
+    Route::get('editRole/{role}', [RolePermissionController::class, 'editRole'])->name('editRole');
+    Route::put('updateRole/{role}', [RolePermissionController::class, 'updateRole'])->name('updateRole');
 
 
 });

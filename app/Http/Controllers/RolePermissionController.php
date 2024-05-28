@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\updateRoleRequest;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
@@ -68,6 +69,29 @@ class RolePermissionController extends Controller
         return to_route('allRoles')
             ->with('success', 'New role has been created');
 
+    }
+
+
+    /**
+     * @param Role $role
+     * @return Response
+     */
+    public function editRole(Role $role): Response
+    {
+
+        return inertia("Role/Edit", [
+            'role' => new RoleResource($role)
+        ]);
+
+    }
+
+
+    public function updateRole(Role $role, UpdateRoleRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
+        $role->name = strtolower($validated['name']);
+        $role->save();
+        return to_route('allRoles')->with('success', 'Role has been updated');
     }
 
 

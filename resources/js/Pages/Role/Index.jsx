@@ -104,7 +104,7 @@ export default function Index({auth, roles, queryParams, success}) {
                                             </th>
                                             <td className="px-3 py-2 text-nowrap">
                                                 <div className="flex space-x-2 justify-end">
-                                                    <Link href=""
+                                                    <Link href={route('editRole', role.id)}
                                                           className="px-2 py-1 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">Edit</Link>
                                                     <Link href=""
                                                           className="px-2 py-1 bg-yellow-500 text-white text-center font-medium rounded hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700">Manage
