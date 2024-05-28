@@ -3,14 +3,18 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
+import SelectInput from "@/Components/SelectInput.jsx";
 
-export default function Create({auth}) {
+export default function Create({auth, roles}) {
     const {data, setData, post, errors, reset} = useForm({
         name: "",
         email: "",
         password: "",
         password_confirmation: "",
     });
+
+
+    console.log(roles);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -102,6 +106,35 @@ export default function Create({auth}) {
 
                                 <InputError
                                     message={errors.password_confirmation}
+                                    className="mt-2"
+                                />
+                            </div>
+
+
+                            <div className="mt-4">
+                                <InputLabel
+                                    htmlFor="user_role_select"
+                                    value="Select User Role"
+                                />
+
+                                <SelectInput
+                                    name="role_id"
+                                    id="role_id"
+                                    className="mt-1 block w-full"
+                                    value={data.role_id}
+                                    onChange={(e) => setData("role_id", e.target.value)}
+                                >
+                                    <option value="">Select Role</option>
+                                    {roles.map((role) => (
+                                        <option key={role.id} value={role.id}>
+                                            {role.name}
+                                        </option>
+                                    ))}
+                                </SelectInput>
+
+
+                                <InputError
+                                    message={errors.role_id}
                                     className="mt-2"
                                 />
                             </div>

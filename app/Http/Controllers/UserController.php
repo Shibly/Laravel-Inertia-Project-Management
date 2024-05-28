@@ -46,7 +46,9 @@ class UserController extends Controller
      */
     public function create(): Response|ResponseFactory
     {
-        return inertia("User/Create");
+        return inertia("User/Create", [
+            'roles' => Role::all(),
+        ]);
     }
 
     /**
@@ -63,7 +65,10 @@ class UserController extends Controller
          * Set Role
          */
 
-        $created_user->assignRole('standard');
+        if (isset($data['role_id'])) {
+            $role = Role::findById($data['role_id']);
+            $created_user->syncRoles($role);
+        }
 
 
         return to_route('user.index')

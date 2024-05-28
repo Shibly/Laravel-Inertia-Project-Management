@@ -31,6 +31,7 @@ class StoreUserRequest extends FormRequest
                 'confirmed',
                 Password::min(8)->letters()->numbers(),
             ],
+            "role_id" => ["required", "exists:roles,id"],
         ];
     }
 }
