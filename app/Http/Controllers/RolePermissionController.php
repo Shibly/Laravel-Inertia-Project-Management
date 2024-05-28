@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAssignPermissionsRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\updateRoleRequest;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolePermissionController extends Controller
@@ -92,6 +94,36 @@ class RolePermissionController extends Controller
         $role->name = strtolower($validated['name']);
         $role->save();
         return to_route('allRoles')->with('success', 'Role has been updated');
+    }
+
+
+    /**
+     * @param Role $role
+     * @return Response|ResponseFactory
+     */
+    public function assignPermissionsToRole(Role $role): Response|ResponseFactory
+    {
+        return inertia("Permission/Assign", [
+            'permissions' => Permission::all(),
+            'role' => $role->load('permissions')
+        ]);
+    }
+
+
+    /**
+     * @param StoreAssignPermissionsRequest $request
+     * @param Role $role
+     * @return RedirectResponse
+     */
+    public function assignPermissions(StoreAssignPermissionsRequest $request, Role $role): RedirectResponse
+    {
+
+        $validated = $request->validated();
+
+        $permissions = Permission::whereIn('name', $validated['permissions'])->get();
+        $role->permissions()->sync($permissions);
+
+        return to_route('allRoles')->with('success', 'Permissions assigned successfully.');
     }
 
 

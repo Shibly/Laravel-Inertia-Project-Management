@@ -161,9 +161,6 @@ export default function Index({auth, users, queryParams = null, success}) {
                                             </td>
                                             <td className="px-3 py-2 text-nowrap">
                                                 <div className="flex space-x-2 justify-center">
-                                                    <Link
-                                                        className="flex-1 px-2 py-1 bg-green-400 text-white text-center font-medium text-sm rounded hover:bg-orange-600 dark:bg-green-600 dark:hover:bg-green-700"
-                                                        href="#">Set Permission</Link>
                                                     <Link href={route("user.edit", user.id)}
                                                           className="flex-1 px-2 py-1 bg-orange-500 text-white text-center font-medium text-sm rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">Edit</Link>
                                                     <button onClick={(e) => deleteUser(user)}
