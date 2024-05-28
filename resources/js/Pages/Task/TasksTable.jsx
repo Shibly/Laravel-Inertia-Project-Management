@@ -173,15 +173,16 @@ export default function TasksTable({
                                 <div className="flex space-x-2 justify-end">
                                     <Link
                                         href={route("task.edit", task.id)}
-                                        className="px-4 py-2 bg-orange-500 text-white text-center font-medium rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
+                                        className="px-2 py-1 bg-orange-500 text-white text-center font-medium text-sm rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
                                         Edit
                                     </Link>
                                     <button
                                         onClick={() => deleteTask(task)}
-                                        className="px-4 py-2 bg-red-500 text-white text-center font-medium rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
+                                        className="px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
                                         Delete
                                     </button>
                                 </div>
+
                             </td>
                         </tr>
                     ))}

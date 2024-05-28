@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -18,6 +19,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('task', TaskController::class);
     Route::resource('user', UserController::class);
     Route::resource('settings', SettingsController::class);
+
+
+    /**
+     * Roles and permissions management
+     */
+
+
+    Route::get('/roles', [RolePermissionController::class, 'getRoles'])->name('allRoles');
+    Route::get('addRole', [RolePermissionController::class, 'addRole'])->name('addRole');
+    Route::post('storeRole', [RolePermissionController::class, 'storeRole'])->name('storeRole');
 
 
 });

@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
 import SelectInput from "@/Components/SelectInput.jsx";
 
-export default function Create({auth, user, roles}) {
+export default function Edit({auth, user, roles}) {
     const {data, setData, post, errors, reset} = useForm({
         name: user.name || "",
         email: user.email || "",

@@ -48,6 +48,12 @@ export default function Authenticated({user, header, children}) {
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href={route('allRoles')} active={route().current('allRoles')}>
+                                    Roles & Permissions
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('settings.index')} active={route().current('settings.index')}>
                                     Application Settings
                                 </NavLink>
