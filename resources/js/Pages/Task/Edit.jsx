@@ -178,7 +178,7 @@ export default function Create({auth, task, projects, users}) {
                                     onChange={(e) => setData("estimated_time", e.target.value)}
                                 />
 
-                                <InputError message={errors.name} className="mt-2"/>
+                                <InputError message={errors.estimated_time} className="mt-2"/>
                             </div>
 
                             <div className="mt-4">
