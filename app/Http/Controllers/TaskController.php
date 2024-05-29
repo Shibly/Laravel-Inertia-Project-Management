@@ -89,10 +89,12 @@ class TaskController extends Controller
      */
     public function show(Task $task): Response|ResponseFactory
     {
+        $task->load(['replies.repliedBy']);
         return inertia('Task/Show', [
             'task' => new TaskResource($task),
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

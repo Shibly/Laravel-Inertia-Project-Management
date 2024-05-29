@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreReplyRequest;
 use App\Http\Requests\UpdateReplyRequest;
 use App\Models\Reply;
+use Illuminate\Http\RedirectResponse;
 
 class TaskReplyController extends Controller
 {
@@ -27,9 +28,18 @@ class TaskReplyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReplyRequest $request)
+    public function store(StoreReplyRequest $request): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+
+        if ($request->hasFile('attachment')) {
+            $filePath = $request->file('attachment')->store('reply_attachments', 'public');
+            $validated['attachment_path'] = $filePath;
+        }
+        Reply::create($validated);
+
+        return to_route('task.show', $validated['task_id'])->with('success', 'Reply added successfully.');
     }
 
     /**

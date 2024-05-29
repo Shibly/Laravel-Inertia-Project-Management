@@ -26,7 +26,7 @@ class Reply extends Model
     /**
      * @return BelongsTo
      */
-    public function user(): BelongsTo
+    public function repliedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'replied_by');
     }

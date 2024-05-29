@@ -31,6 +31,7 @@ class TaskResource extends JsonResource
                 Storage::url($this->attachment_path) : $this->attachment_path,
             'project_id' => $this->project_id,
             'project' => new ProjectResource($this->project),
+            'replies' => ReplyResource::collection($this->replies),
             'assigned_user_id' => $this->assigned_user_id,
             'assignedUser' => $this->assignedUser ? new UserResource($this->assignedUser) : null,
             'createdBy' => new UserResource($this->createdBy),

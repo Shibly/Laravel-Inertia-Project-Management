@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreReplyRequest extends FormRequest
@@ -11,18 +12,21 @@ class StoreReplyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'reply' => 'required|string',
+            'attachment_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,json', // Adjust file types and size as needed
+            'replied_by' => 'required|exists:users,id',
+            'task_id' => 'required|exists:tasks,id',
         ];
     }
 }
