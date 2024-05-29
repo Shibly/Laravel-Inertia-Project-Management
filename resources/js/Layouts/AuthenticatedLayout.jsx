@@ -7,7 +7,7 @@ import {Link} from '@inertiajs/react';
 
 export default function Authenticated({user, header, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-    const hasStandardRole = user && user.roles && user.roles.includes('admin');
+    const hasAdminRole = user && user.roles && user.roles.includes('admin');
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -28,7 +28,7 @@ export default function Authenticated({user, header, children}) {
                                 </NavLink>
                             </div>
 
-                            {hasStandardRole && (
+                            {hasAdminRole && (
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                     <NavLink href={route('project.index')} active={route().current('project.index')}>
                                         Projects
