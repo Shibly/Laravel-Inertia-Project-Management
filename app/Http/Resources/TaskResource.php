@@ -26,6 +26,7 @@ class TaskResource extends JsonResource
             'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
             'due_date' => (new Carbon($this->due_date))->format('Y-m-d'),
             'status' => $this->status,
+            'estimated_time' => $this->estimated_time ?: null,
             'priority' => $this->priority,
             'task_attachment' => $this->attachment_path && !(str_starts_with($this->attachment_path, 'http')) ?
                 Storage::url($this->attachment_path) : $this->attachment_path,

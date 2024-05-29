@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import {Head, Link, useForm} from "@inertiajs/react";
 import {
     TASK_PRIORITY_CLASS_MAP,
     TASK_PRIORITY_TEXT_MAP,
@@ -7,9 +7,9 @@ import {
     TASK_STATUS_TEXT_MAP,
 } from "@/constants.jsx";
 
-export default function Show({ auth, task }) {
+export default function Show({auth, task}) {
 
-    const { data, setData, post, errors } = useForm({
+    const {data, setData, post, errors} = useForm({
         reply: '',
         attachment: null,
         replied_by: auth.user.id,
@@ -21,7 +21,7 @@ export default function Show({ auth, task }) {
         post(route('reply.store'), {
             data,
             onSuccess: () => {
-                setData({ ...data, reply: '', attachment: null });
+                setData({...data, reply: '', attachment: null});
             },
         });
     };
@@ -43,7 +43,7 @@ export default function Show({ auth, task }) {
                 </div>
             }
         >
-            <Head title={`Task "${task.name}"`} />
+            <Head title={`Task "${task.name}"`}/>
             <div className="py-12 bg-gray-800">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
@@ -52,9 +52,17 @@ export default function Show({ auth, task }) {
                                 <tbody>
                                 <tr className="bg-gray-200 dark:bg-gray-800">
                                     <th className="text-left font-semibold text-lg p-4 border-b border-gray-300 dark:border-gray-700">
-                                        Task ID
+                                        Attachment
                                     </th>
-                                    <td className="p-4 border-b border-gray-300 dark:border-gray-700">{task.id}</td>
+                                    <td className="p-4 border-b border-gray-300 dark:border-gray-700">{task.task_attachment ? (
+                                        <a className="dark:text-blue-500 hover:underline" href={task.task_attachment}
+                                           download={task.task_attachment}
+                                           style={{textDecoration: 'none'}}>
+                                            Download Attachment
+                                        </a>
+                                    ) : (
+                                        <span>No Attachment</span>
+                                    )}</td>
                                     <th className="text-left font-semibold text-lg p-4 border-b border-gray-300 dark:border-gray-700">
                                         Due Date
                                     </th>
@@ -75,7 +83,8 @@ export default function Show({ auth, task }) {
                                         Task Status
                                     </th>
                                     <td className="p-4 border-b border-gray-300 dark:border-gray-700">
-                                            <span className={"px-2 py-1 rounded text-white " + TASK_STATUS_CLASS_MAP[task.status]}>
+                                            <span
+                                                className={"px-2 py-1 rounded text-white " + TASK_STATUS_CLASS_MAP[task.status]}>
                                                 {TASK_STATUS_TEXT_MAP[task.status]}
                                             </span>
                                     </td>
@@ -89,7 +98,8 @@ export default function Show({ auth, task }) {
                                         Task Priority
                                     </th>
                                     <td className="p-4 border-b border-gray-300 dark:border-gray-700">
-                                            <span className={"px-2 py-1 rounded text-white " + TASK_PRIORITY_CLASS_MAP[task.priority]}>
+                                            <span
+                                                className={"px-2 py-1 rounded text-white " + TASK_PRIORITY_CLASS_MAP[task.priority]}>
                                                 {TASK_PRIORITY_TEXT_MAP[task.priority]}
                                             </span>
                                     </td>
@@ -97,7 +107,8 @@ export default function Show({ auth, task }) {
                                         Project
                                     </th>
                                     <td className="p-4 border-b border-gray-300 dark:border-gray-700">
-                                        <Link href={route("project.show", task.project.id)} className="hover:underline text-blue-500">
+                                        <Link href={route("project.show", task.project.id)}
+                                              className="hover:underline text-blue-500">
                                             {task.project.name}
                                         </Link>
                                     </td>
@@ -131,7 +142,8 @@ export default function Show({ auth, task }) {
                                     </div>
                                     {reply.attachment_path && (
                                         <div className="mt-2">
-                                            <a href={reply.attachment_path} download className="text-blue-500 hover:underline">
+                                            <a href={reply.attachment_path} download
+                                               className="text-blue-500 hover:underline">
                                                 Download Attachment
                                             </a>
                                         </div>
@@ -141,8 +153,9 @@ export default function Show({ auth, task }) {
                         </div>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label htmlFor="reply" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    Reply
+                                <label htmlFor="reply"
+                                       className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Write your reply:
                                 </label>
                                 <textarea
                                     id="reply"
@@ -155,7 +168,8 @@ export default function Show({ auth, task }) {
                                 {errors.reply && <div className="text-red-600 mt-2">{errors.reply}</div>}
                             </div>
                             <div>
-                                <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label htmlFor="attachment"
+                                       className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Attachment
                                 </label>
                                 <input
@@ -170,9 +184,8 @@ export default function Show({ auth, task }) {
                             <div className="flex items-center justify-end">
                                 <button
                                     type="submit"
-                                    className="bg-emerald-500 text-white py-2 px-4 rounded shadow hover:bg-emerald-600 transition-all"
-                                >
-                                    Submit Reply
+                                    className="bg-emerald-500 text-white py-1 px-2 rounded shadow text-sm hover:bg-emerald-600 transition-all">Submit
+                                    Reply
                                 </button>
                             </div>
                         </form>

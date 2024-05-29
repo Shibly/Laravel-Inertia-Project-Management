@@ -26,7 +26,7 @@ class ReplyResource extends JsonResource
                 Storage::url($this->attachment_path) : $this->attachment_path,
             'replied_by' => new UserResource($this->whenLoaded('repliedBy')),
             'task_id' => $this->task_id,
-            'created_at' => $this->created_at->toDateTimeString(),
+            'created_at' => $this->created_at->format('Y-m-d g:i A'),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }

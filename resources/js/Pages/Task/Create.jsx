@@ -13,6 +13,7 @@ export default function Create({auth, projects, users}) {
         status: "",
         description: "",
         due_date: "",
+        estimated_time: ""
     });
 
     const onSubmit = (e) => {
@@ -150,6 +151,23 @@ export default function Create({auth, projects, users}) {
                                 </SelectInput>
 
                                 <InputError message={errors.priority} className="mt-2"/>
+                            </div>
+
+
+                            <div className="mt-4">
+                                <InputLabel htmlFor="estimated_time" value="Estimated Time"/>
+
+                                <TextInput
+                                    id="estimated_time"
+                                    type="number"
+                                    name="estimated_time"
+                                    value={data.estimated_time}
+                                    className="mt-1 block w-full"
+                                    isFocused={true}
+                                    onChange={(e) => setData("estimated_time", e.target.value)}
+                                />
+
+                                <InputError message={errors.name} className="mt-2"/>
                             </div>
 
                             <div className="mt-4">

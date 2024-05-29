@@ -26,6 +26,7 @@ class StoreTaskRequest extends FormRequest
         return [
             "name" => ['required', 'max:255'],
             'task_attachment' => ['nullable', 'file'],
+            'estimated_time' => ['nullable', 'string'],
             "description" => ['nullable', 'string'],
             'due_date' => ['nullable', 'date'],
             'project_id' => ['required', 'exists:projects,id'],
