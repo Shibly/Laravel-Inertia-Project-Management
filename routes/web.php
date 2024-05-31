@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RolePermissionController;
@@ -22,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('settings', SettingsController::class);
     Route::resource('reply', TaskReplyController::class);
+    Route::resource('client', ClientController::class);
 
 
     /**

@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response|ResponseFactory
     {
-        //
+        $clients = Client::all();
+        return inertia("Client/Index", [
+            'clients' => $clients
+        ]);
     }
 
     /**
