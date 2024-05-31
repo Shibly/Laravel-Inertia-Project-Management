@@ -15,68 +15,95 @@ export default function Dashboard({auth}) {
                         <div className="bg-gray-900 text-white min-h-screen p-6">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                                {/* Projects Widget */}
-                                <div
-                                    className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300">
+
+                                {/*Projects widget*/}
+
+                                <div className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300 mt-6 min-h-[250px]">
                                     <h3 className="text-lg font-semibold mb-4">Projects</h3>
                                     <hr className="border-gray-600 mb-4"/>
-                                    <div className="mb-4">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-md text-green-400">Completed</span>
-                                            <span className="text-green-400 text-lg font-bold">12</span>
-                                        </div>
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-md text-yellow-400">Ongoing</span>
-                                            <span className="text-yellow-400 text-lg font-bold">8</span>
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-md text-red-400">Pending</span>
-                                            <span className="text-red-400 text-lg font-bold">4</span>
-                                        </div>
-                                    </div>
+                                    <table className="min-w-full divide-y divide-gray-700">
+                                        <thead>
+                                        <tr>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Count</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-green-400">Active</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-green-400">65</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-red-400">Inactive</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-red-400">10</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-yellow-400">Pending</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-yellow-400">3</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
-                                {/* Tasks Widget */}
-                                <div
-                                    className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300">
+                                {/*Tasks widgets*/}
+
+                                <div className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300 mt-6 min-h-[250px]">
                                     <h3 className="text-lg font-semibold mb-4">Tasks</h3>
                                     <hr className="border-gray-600 mb-4"/>
-                                    <div className="mb-4">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-md text-green-400">Completed</span>
-                                            <span className="text-green-400 text-lg font-bold">90</span>
-                                        </div>
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-md text-yellow-400">Ongoing</span>
-                                            <span className="text-yellow-400 text-lg font-bold">20</span>
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-md text-red-400">Pending</span>
-                                            <span className="text-red-400 text-lg font-bold">10</span>
-                                        </div>
-                                    </div>
+                                    <table className="min-w-full divide-y divide-gray-700">
+                                        <thead>
+                                        <tr>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Count</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-green-400">Completed</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-green-400">90</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-yellow-400">Ongoing</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-yellow-400">20</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-red-400">Pending</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-red-400">10</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
-                                {/* Users Widget */}
-                                <div
-                                    className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300">
+
+                                {/*Users widget*/}
+
+                                <div className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300 mt-6 min-h-[250px]">
                                     <h3 className="text-lg font-semibold mb-4">Users</h3>
                                     <hr className="border-gray-600 mb-4"/>
-                                    <div className="mb-4">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-md text-green-400">Active</span>
-                                            <span className="text-green-400 text-lg font-bold">65</span>
-                                        </div>
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-md text-red-400">Inactive</span>
-                                            <span className="text-red-400 text-lg font-bold">10</span>
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-md text-yellow-400">Pending</span>
-                                            <span className="text-yellow-400 text-lg font-bold">3</span>
-                                        </div>
-                                    </div>
+                                    <table className="min-w-full divide-y divide-gray-700">
+                                        <thead>
+                                        <tr>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Count</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-green-400">Active</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-green-400">65</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-red-400">Inactive</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-red-400">10</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-md text-yellow-400">Pending</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-bold text-yellow-400">3</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
+
 
                             </div>
                         </div>
