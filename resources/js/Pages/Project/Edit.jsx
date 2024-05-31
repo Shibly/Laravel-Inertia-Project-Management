@@ -6,13 +6,14 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
 
-export default function Create({auth, project}) {
+export default function Create({auth, project, clients}) {
     const {data, setData, post, errors, reset} = useForm({
         image: "",
         name: project.name || "",
         status: project.status || "",
         description: project.description || "",
         due_date: project.due_date || "",
+        client_id: "",
         _method: "PUT",
     });
 
@@ -61,6 +62,32 @@ export default function Create({auth, project}) {
                             {/*    />*/}
                             {/*    <InputError message={errors.image} className="mt-2"/>*/}
                             {/*</div>*/}
+
+                            <div className="mt-4">
+                                <InputLabel htmlFor="project_client" value="Select Client"/>
+
+                                <SelectInput
+                                    name="client_id"
+                                    id="client_id"
+                                    className="mt-1 block w-full"
+                                    onChange={(e) => setData("client_id", e.target.value)}
+                                >
+                                    <option value="">Select Client</option>
+                                    {clients.data.map((client) => (
+                                        <option
+                                            value={client.id}
+                                            key={client.id}
+                                            selected={client.id === project.client_id ? 'selected' : ''}
+                                        >
+                                            {client.name}
+                                        </option>
+                                    ))}
+                                </SelectInput>
+
+                                <InputError message={errors.client_id} className="mt-2"/>
+                            </div>
+
+
                             <div className="mt-4">
                                 <InputLabel htmlFor="project_name" value="Project Name"/>
 

@@ -44,7 +44,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'status', 'due_date', 'created_by', 'updated_by']; // removed image_path
+    protected $fillable = ['name', 'description', 'status', 'due_date', 'created_by', 'updated_by', 'client_id']; // removed image_path
 
     /**
      * @return HasMany

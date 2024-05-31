@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ClientResource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
+use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
@@ -57,7 +59,9 @@ class ProjectController extends Controller
      */
     public function create(): Response|ResponseFactory
     {
-        return inertia("Project/Create");
+        return inertia("Project/Create", [
+            'clients' => ClientResource::collection(Client::all())
+        ]);
     }
 
     /**
@@ -116,6 +120,7 @@ class ProjectController extends Controller
     {
         return inertia('Project/Edit', [
             'project' => new ProjectResource($project),
+            'clients' => ClientResource::collection(Client::all())
         ]);
     }
 

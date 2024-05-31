@@ -29,6 +29,18 @@ class StoreProjectRequest extends FormRequest
             'due_date' => ['nullable', 'date'],
             'status' => ['required', Rule::in(['pending', 'in_progress', 'completed'])],
             //'image' => ['nullable', 'image']
+            'client_id' => ['required'],
+        ];
+    }
+
+
+    /**
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'client_id.required' => 'Select a client',
         ];
     }
 }

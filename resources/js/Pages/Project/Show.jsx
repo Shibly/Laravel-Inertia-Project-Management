@@ -4,6 +4,10 @@ import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP,} from "@/constants.js
 import TasksTable from "../Task/TasksTable";
 
 export default function Show({auth, success, project, tasks, queryParams}) {
+
+    console.log(project);
+
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -24,15 +28,15 @@ export default function Show({auth, success, project, tasks, queryParams}) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        {/* Project Image */}
-                        {/*<div>*/}
-                        {/*    <img*/}
-                        {/*        src={project.image_path}*/}
-                        {/*        alt=""*/}
-                        {/*        className="w-full h-64 object-cover"*/}
-                        {/*    />*/}
-                        {/*</div>*/}
                         <div className="p-6 text-gray-900 dark:text-gray-100">
+                            <div className="flex justify-between items-center mb-6">
+                                <span className="px-2 py-1 rounded text-sm">
+                                    Client Name : <span className="rounded text-white bg-indigo-500 dark:bg-indigo-700 px-2 py-1">{project.client.name}</span>
+
+                                </span>
+                            </div>
+
+
                             <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                                 <table
                                     className="min-w-full divide-y divide-gray-200 border border-gray-300 dark:border-gray-700 text-sm">

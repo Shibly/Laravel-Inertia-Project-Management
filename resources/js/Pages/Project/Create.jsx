@@ -6,14 +6,17 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
 
-export default function Create({auth}) {
+export default function Create({auth, clients}) {
     const {data, setData, post, errors, reset} = useForm({
-        image: "",
+        // image: "",
         name: "",
         status: "",
         description: "",
         due_date: "",
+        client_id: ""
     });
+
+    console.log(clients.data);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -55,6 +58,29 @@ export default function Create({auth}) {
                             {/*    />*/}
                             {/*    <InputError message={errors.image} className="mt-2"/>*/}
                             {/*</div>*/}
+
+
+                            <div className="mt-4">
+                                <InputLabel htmlFor="project_client" value="Select Client"/>
+
+                                <SelectInput
+                                    name="client_id"
+                                    id="client_id"
+                                    className="mt-1 block w-full"
+                                    onChange={(e) => setData("client_id", e.target.value)}
+                                >
+                                    <option value="">Select Client</option>
+                                    {clients.data.map((client) => (
+                                        <option value={client.id} key={client.id}>
+                                            {client.name}
+                                        </option>
+                                    ))}
+                                </SelectInput>
+
+                                <InputError message={errors.client_id} className="mt-2"/>
+                            </div>
+
+
                             <div className="mt-4">
                                 <InputLabel htmlFor="project_name" value="Project Name"/>
 
