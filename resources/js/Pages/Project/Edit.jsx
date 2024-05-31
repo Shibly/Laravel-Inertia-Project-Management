@@ -42,25 +42,25 @@ export default function Create({auth, project}) {
                             onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
-                            {project.image_path && (
-                                <div className="mb-4">
-                                    <img src={project.image_path} className="w-64"/>
-                                </div>
-                            )}
-                            <div>
-                                <InputLabel
-                                    htmlFor="project_image_path"
-                                    value="Project Image"
-                                />
-                                <TextInput
-                                    id="project_image_path"
-                                    type="file"
-                                    name="image"
-                                    className="mt-1 block w-full"
-                                    onChange={(e) => setData("image", e.target.files[0])}
-                                />
-                                <InputError message={errors.image} className="mt-2"/>
-                            </div>
+                            {/*{project.image_path && (*/}
+                            {/*    <div className="mb-4">*/}
+                            {/*        <img src={project.image_path} className="w-64"/>*/}
+                            {/*    </div>*/}
+                            {/*)}*/}
+                            {/*<div>*/}
+                            {/*    <InputLabel*/}
+                            {/*        htmlFor="project_image_path"*/}
+                            {/*        value="Project Image"*/}
+                            {/*    />*/}
+                            {/*    <TextInput*/}
+                            {/*        id="project_image_path"*/}
+                            {/*        type="file"*/}
+                            {/*        name="image"*/}
+                            {/*        className="mt-1 block w-full"*/}
+                            {/*        onChange={(e) => setData("image", e.target.files[0])}*/}
+                            {/*    />*/}
+                            {/*    <InputError message={errors.image} className="mt-2"/>*/}
+                            {/*</div>*/}
                             <div className="mt-4">
                                 <InputLabel htmlFor="project_name" value="Project Name"/>
 
@@ -87,6 +87,7 @@ export default function Create({auth, project}) {
                                     name="description"
                                     value={data.description}
                                     className="mt-1 block w-full"
+                                    style={{height: '250px'}}
                                     onChange={(e) => setData("description", e.target.value)}
                                 />
 

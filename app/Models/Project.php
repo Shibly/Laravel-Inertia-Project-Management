@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -44,7 +44,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image_path', 'name', 'description', 'status', 'due_date', 'created_by', 'updated_by'];
+    protected $fillable = ['name', 'description', 'status', 'due_date', 'created_by', 'updated_by']; // removed image_path
 
     /**
      * @return HasMany
@@ -77,6 +77,15 @@ class Project extends Model
         static::deleting(function ($project) {
             $project->tasks()->delete();
         });
+    }
+
+
+    /**
+     * @return BelongsTo
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
     }
 
 }

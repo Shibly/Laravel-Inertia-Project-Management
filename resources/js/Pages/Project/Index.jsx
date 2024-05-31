@@ -120,7 +120,7 @@ export default function Index({auth, projects, queryParams = null, success}) {
                                         >
                                             ID
                                         </TableHeading>
-                                        <th className="px-3 py-3">Image</th>
+                                        {/*<th className="px-3 py-3">Image</th>*/}
                                         <TableHeading
                                             name="name"
                                             sort_field={queryParams.sort_field}
@@ -167,9 +167,9 @@ export default function Index({auth, projects, queryParams = null, success}) {
                                             key={project.id}
                                         >
                                             <td className="px-3 py-2">{project.id}</td>
-                                            <td className="px-3 py-2">
-                                                <img src={project.image_path} style={{width: 60}}/>
-                                            </td>
+                                            {/*<td className="px-3 py-2">*/}
+                                            {/*    <img src={project.image_path} style={{width: 60}}/>*/}
+                                            {/*</td>*/}
                                             <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
                                                 <Link href={route("project.show", project.id)}>
                                                     {project.name}
