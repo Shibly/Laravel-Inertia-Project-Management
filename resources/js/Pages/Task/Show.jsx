@@ -54,15 +54,17 @@ export default function Show({auth, task}) {
                                     <th className="text-left font-semibold text-lg p-4 border-b border-gray-300 dark:border-gray-700">
                                         Attachment
                                     </th>
-                                    <td className="p-4 border-b border-gray-300 dark:border-gray-700">{task.task_attachment ? (
-                                        <a className="dark:text-blue-500 hover:underline" href={task.task_attachment}
-                                           download={task.task_attachment}
-                                           style={{textDecoration: 'none'}}>
-                                            Download Attachment
-                                        </a>
-                                    ) : (
-                                        <span>No Attachment</span>
-                                    )}</td>
+                                    <td className="p-4 border-b border-gray-300 dark:border-gray-700">
+                                        {task.task_attachment ? (
+                                            <a className="dark:text-blue-500 hover:underline"
+                                               href={task.task_attachment} download={task.task_attachment}
+                                               style={{textDecoration: 'none'}}>
+                                                Download Attachment
+                                            </a>
+                                        ) : (
+                                            <span>No Attachment</span>
+                                        )}
+                                    </td>
                                     <th className="text-left font-semibold text-lg p-4 border-b border-gray-300 dark:border-gray-700">
                                         Due Date
                                     </th>
@@ -83,10 +85,9 @@ export default function Show({auth, task}) {
                                         Task Status
                                     </th>
                                     <td className="p-4 border-b border-gray-300 dark:border-gray-700">
-                                            <span
-                                                className={"px-2 py-1 rounded text-white " + TASK_STATUS_CLASS_MAP[task.status]}>
-                                                {TASK_STATUS_TEXT_MAP[task.status]}
-                                            </span>
+                                <span className={"px-2 py-1 rounded text-white " + TASK_STATUS_CLASS_MAP[task.status]}>
+                                    {TASK_STATUS_TEXT_MAP[task.status]}
+                                </span>
                                     </td>
                                     <th className="text-left font-semibold text-lg p-4 border-b border-gray-300 dark:border-gray-700">
                                         Updated By
@@ -98,10 +99,10 @@ export default function Show({auth, task}) {
                                         Task Priority
                                     </th>
                                     <td className="p-4 border-b border-gray-300 dark:border-gray-700">
-                                            <span
-                                                className={"px-2 py-1 rounded text-white " + TASK_PRIORITY_CLASS_MAP[task.priority]}>
-                                                {TASK_PRIORITY_TEXT_MAP[task.priority]}
-                                            </span>
+                                <span
+                                    className={"px-2 py-1 rounded text-white " + TASK_PRIORITY_CLASS_MAP[task.priority]}>
+                                    {TASK_PRIORITY_TEXT_MAP[task.priority]}
+                                </span>
                                     </td>
                                     <th className="text-left font-semibold text-lg p-4 border-b border-gray-300 dark:border-gray-700">
                                         Project
@@ -119,14 +120,16 @@ export default function Show({auth, task}) {
                                     <th className="text-left font-semibold text-lg p-4">Assigned User</th>
                                     <td className="p-4">{task.assignedUser.name}</td>
                                 </tr>
-                                <tr className="bg-gray-200 dark:bg-gray-800">
-                                    <th className="text-left font-semibold text-lg p-4 whitespace-nowrap">
-                                        Task Description
-                                    </th>
-                                    <td className="p-4" colSpan="3">{task.description}</td>
-                                </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div className="bg-white dark:bg-gray-900 overflow-hidden shadow-lg sm:rounded-lg mt-8 p-6">
+                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Task
+                            Description</h3>
+                        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded shadow-lg mb-8">
+                            <p className="text-gray-700 dark:text-gray-300">{task.description}</p>
                         </div>
                     </div>
 
@@ -182,16 +185,17 @@ export default function Show({auth, task}) {
                                 {errors.attachment && <div className="text-red-600 mt-2">{errors.attachment}</div>}
                             </div>
                             <div className="flex items-center justify-end">
-                                <button
-                                    type="submit"
-                                    className="bg-emerald-500 text-white py-1 px-2 rounded shadow text-sm hover:bg-emerald-600 transition-all">Submit
-                                    Reply
+                                <button type="submit"
+                                        className="bg-emerald-500 text-white py-1 px-2 rounded shadow text-sm hover:bg-emerald-600 transition-all">
+                                    Submit Reply
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
+
         </AuthenticatedLayout>
     );
 }

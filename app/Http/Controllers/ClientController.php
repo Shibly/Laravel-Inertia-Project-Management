@@ -72,20 +72,30 @@ class ClientController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Client $client)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * @param Client $client
+     * @return Response|ResponseFactory
      */
-    public function update(UpdateClientRequest $request, Client $client)
+
+    public function edit(Client $client): Response|ResponseFactory
     {
-        //
+        return inertia("Client/Edit", [
+            'client' => new ClientResource($client)
+        ]);
+    }
+
+
+    /**
+     * @param UpdateClientRequest $request
+     * @param Client $client
+     * @return RedirectResponse
+     */
+    public function update(UpdateClientRequest $request, Client $client): RedirectResponse
+    {
+        $data = $request->validated();
+        $client->update($data);
+        return to_route('client.index')->with('success', 'Client updated successfully.');
     }
 
 
