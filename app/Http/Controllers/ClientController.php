@@ -41,12 +41,13 @@ class ClientController extends Controller
         ]);
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * @return Response|ResponseFactory
      */
-    public function create()
+    public function create(): Response|ResponseFactory
     {
-        //
+        return inertia("Client/Create");
     }
 
 
@@ -87,11 +88,23 @@ class ClientController extends Controller
         //
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * @param Client $client
+     * @return RedirectResponse
      */
-    public function destroy(Client $client)
+    public function destroy(Client $client): RedirectResponse
     {
-        //
+        $name = $client->name;
+
+        // Delete All the associated projects with the client first
+
+        $client->projects()->delete();
+
+        $client->delete();
+
+        return to_route("client.index")->with('success', "Client $name  has been deleted.");
+
+
     }
 }
