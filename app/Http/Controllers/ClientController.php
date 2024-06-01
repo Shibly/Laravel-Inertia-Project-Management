@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Http\Resources\ClientResource;
 use App\Models\Client;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -15,9 +17,27 @@ class ClientController extends Controller
      */
     public function index(): Response|ResponseFactory
     {
-        $clients = Client::all();
+
+        $query = Client::query();
+
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "desc");
+
+        if (request("name")) {
+            $query->where("name", "like", "%" . request("name") . "%");
+        }
+        if (request("email")) {
+            $query->where("email", request("email"));
+        }
+
+        $clients = $query->orderBy($sortField, $sortDirection)
+            ->paginate(10)
+            ->onEachSide(1);
+
         return inertia("Client/Index", [
-            'clients' => $clients
+            "clients" => ClientResource::collection($clients),
+            'queryParams' => request()->query() ?: null,
+            'success' => session('success'),
         ]);
     }
 
@@ -29,12 +49,18 @@ class ClientController extends Controller
         //
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * @param StoreClientRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreClientRequest $request)
+
+    public function store(StoreClientRequest $request): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        Client::create($data);
+
+        return to_route('client.index')->with('success', 'Client created successfully.');
     }
 
     /**

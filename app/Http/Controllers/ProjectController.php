@@ -38,11 +38,6 @@ class ProjectController extends Controller
         }
 
 
-        /**
-         * Pass permission to react component
-         */
-
-
         $projects = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)
             ->onEachSide(1);

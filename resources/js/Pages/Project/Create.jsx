@@ -16,7 +16,7 @@ export default function Create({auth, clients}) {
         client_id: ""
     });
 
-    console.log(clients.data);
+
 
     const onSubmit = (e) => {
         e.preventDefault();
