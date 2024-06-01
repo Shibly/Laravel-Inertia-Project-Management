@@ -78,7 +78,7 @@ export default function Dashboard({auth}) {
                                 {/*Users widget*/}
 
                                 <div className="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors duration-300 mt-6 min-h-[250px]">
-                                    <h3 className="text-lg font-semibold mb-4">Users</h3>
+                                    <h3 className="text-lg font-semibold mb-4">Clients</h3>
                                     <hr className="border-gray-600 mb-4"/>
                                     <table className="min-w-full divide-y divide-gray-700">
                                         <thead>
