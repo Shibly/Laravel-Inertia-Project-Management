@@ -6,6 +6,7 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
 
+
 export default function Create({auth, clients}) {
     const {data, setData, post, errors, reset} = useForm({
         // image: "",
@@ -105,8 +106,7 @@ export default function Create({auth, clients}) {
                                     id="project_description"
                                     name="description"
                                     value={data.description}
-                                    className="mt-1 block w-full"
-                                    style={{height: '250px'}}
+                                    className="mt-1 block w-full h-40"
                                     onChange={(e) => setData("description", e.target.value)}
                                 />
 
@@ -136,7 +136,8 @@ export default function Create({auth, clients}) {
                                     name="status"
                                     id="project_status"
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("status", e.target.value)}>
+                                    onChange={(e) => setData("status", e.target.value)}
+                                >
                                     <option value="">Select Status</option>
                                     <option value="pending">Pending</option>
                                     <option value="in_progress">In Progress</option>

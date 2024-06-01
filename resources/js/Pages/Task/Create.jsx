@@ -97,7 +97,7 @@ export default function Create({auth, projects, users}) {
                                     id="task_description"
                                     name="description"
                                     value={data.description}
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full h-40"
                                     onChange={(e) => setData("description", e.target.value)}
                                 />
 
