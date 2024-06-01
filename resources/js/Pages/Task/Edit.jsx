@@ -135,12 +135,15 @@ export default function Create({auth, task, projects, users}) {
                                     id="task_status"
                                     value={data.status}
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("status", e.target.value)}
-                                >
+                                    onChange={(e) => setData("status", e.target.value)}>
                                     <option value="">Select Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
+                                    <option value="pending" selected={data.status === "pending"}>Pending</option>
+                                    <option value="in_progress" selected={data.status === "in_progress"}>In Progress
+                                    </option>
+                                    <option value="completed" selected={data.status === "completed"}>Completed</option>
+                                    <option value="on_hold" selected={data.status === "on_hold"}>On hold</option>
+                                    <option value="revision" selected={data.status === "revision"}>Revision</option>
+                                    <option value="cancelled" selected={data.status === "cancelled"}>Cancelled</option>
                                 </SelectInput>
 
                                 <InputError message={errors.task_status} className="mt-2"/>
@@ -157,9 +160,9 @@ export default function Create({auth, task, projects, users}) {
                                     onChange={(e) => setData("priority", e.target.value)}
                                 >
                                     <option value="">Select Priority</option>
-                                    <option value="low">Low</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
+                                    <option value="low" selected={data.status === "low"}>Low</option>
+                                    <option value="medium" selected={data.status === "medium"}>Medium</option>
+                                    <option value="high" selected={data.status === "high"}>High</option>
                                 </SelectInput>
 
                                 <InputError message={errors.priority} className="mt-2"/>

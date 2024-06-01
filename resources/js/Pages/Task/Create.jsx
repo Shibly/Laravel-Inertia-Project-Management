@@ -124,12 +124,14 @@ export default function Create({auth, projects, users}) {
                                     name="status"
                                     id="task_status"
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("status", e.target.value)}
-                                >
+                                    onChange={(e) => setData("status", e.target.value)}>
                                     <option value="">Select Status</option>
                                     <option value="pending">Pending</option>
                                     <option value="in_progress">In Progress</option>
                                     <option value="completed">Completed</option>
+                                    <option value="on_hold">On hold</option>
+                                    <option value="revision">Revision</option>
+                                    <option value="cancelled">Cancelled</option>
                                 </SelectInput>
 
                                 <InputError message={errors.task_status} className="mt-2"/>

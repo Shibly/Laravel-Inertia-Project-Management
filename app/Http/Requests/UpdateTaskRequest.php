@@ -33,7 +33,7 @@ class UpdateTaskRequest extends FormRequest
             'assigned_user_id' => ['required', 'exists:users,id'],
             'status' => [
                 'required',
-                Rule::in(['pending', 'in_progress', 'completed'])
+                Rule::in(['pending', 'in_progress', 'completed', 'on_hold', 'cancelled', 'revision'])
             ],
             'priority' => [
                 'required',

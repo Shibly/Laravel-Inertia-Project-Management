@@ -17,7 +17,6 @@ export default function Create({auth, clients}) {
     });
 
 
-
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -137,12 +136,13 @@ export default function Create({auth, clients}) {
                                     name="status"
                                     id="project_status"
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("status", e.target.value)}
-                                >
+                                    onChange={(e) => setData("status", e.target.value)}>
                                     <option value="">Select Status</option>
                                     <option value="pending">Pending</option>
                                     <option value="in_progress">In Progress</option>
                                     <option value="completed">Completed</option>
+                                    <option value="archived">Archived</option>
+                                    <option value="on_hold">On Hold</option>
                                 </SelectInput>
 
                                 <InputError message={errors.project_status} className="mt-2"/>
