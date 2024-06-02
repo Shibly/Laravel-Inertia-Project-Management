@@ -95,7 +95,7 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice): Response|ResponseFactory
     {
         return inertia("Invoice/Edit", [
-            'invoice' => $invoice
+            'invoice' => new InvoiceResource($invoice->load('items'))
         ]);
     }
 

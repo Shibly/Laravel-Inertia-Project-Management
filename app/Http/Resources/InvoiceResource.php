@@ -20,13 +20,21 @@ class InvoiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'bill_to' => $this->to,
-            'date' => date('M d, Y', strtotime($this->date)),
-            'due_date' => date('M d, Y', strtotime($this->due_date)),
-            'amount' => $this->amount_paid,
+            'from' => $this->from,
+            'to' => $this->to,
+            'ship_to' => $this->ship_to,
+            'date' => $this->date,
+            'payment_terms' => $this->payment_terms,
+            'due_date' => $this->due_date,
             'invoice_number' => $this->invoice_number,
-            'created_at' => $this->created_at->toDateTimeString(),
-            'invoice_status' => $this->invoice_status
+            'notes' => $this->notes,
+            'terms' => $this->terms,
+            'tax' => $this->tax,
+            'discount' => $this->discount,
+            'shipping' => $this->shipping,
+            'amount_paid' => $this->amount_paid,
+            'balance_due' => $this->balance_due,
+            'items' => InvoiceItemResource::collection($this->items),
         ];
     }
 }
