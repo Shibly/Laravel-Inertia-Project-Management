@@ -104,9 +104,23 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task): Response|ResponseFactory
+    public function show(Task $task): Response|ResponseFactory|RedirectResponse
     {
+        $user = Auth::user();
+
+
+        if (!$user->can('manage_tasks') && !$user->can('manage_own_tasks')) {
+            return to_route('task.index')->with('warning', 'You do not have permission to view this task.');
+        }
+
+        if ($user->can('manage_own_tasks') && $task->assigned_user_id !== $user->id) {
+            return to_route('task.index')->with('warning', 'You do not have permission to view this task.');
+        }
+
+
         $task->load(['replies.repliedBy']);
+
+
         return inertia('Task/Show', [
             'task' => new TaskResource($task),
         ]);
@@ -116,8 +130,21 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task): Response|ResponseFactory
+    public function edit(Task $task): Response|ResponseFactory|RedirectResponse
     {
+        $user = Auth::user();
+
+
+        if (!$user->can('manage_tasks') && !$user->can('manage_own_tasks')) {
+            return to_route('task.index')->with('warning', 'You do not have permission to edit others task.');
+        }
+
+
+        if ($user->can('manage_own_tasks') && $task->assigned_user_id !== $user->id) {
+            return to_route('task.index')->with('warning', 'You do not have permission to edit others task.');
+        }
+
+
         $projects = Project::query()->orderBy('name', 'asc')->get();
         $users = User::query()->orderBy('name', 'asc')->get();
 
@@ -127,6 +154,7 @@ class TaskController extends Controller
             'users' => UserResource::collection($users),
         ]);
     }
+
 
     /**
      * Update the specified resource in storage.
