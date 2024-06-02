@@ -18,40 +18,41 @@ class RoleSeeder extends Seeder
 
 
         $permission_manage_users = Permission::create([
-            'name' => 'manage users'
-        ]);
-
-
-        $permission_edit_user = Permission::create([
-            'name' => 'edit user'
-        ]);
-
-        $permission_delete_user = Permission::create([
-            'name' => 'delete user'
+            'name' => 'manage_users'
         ]);
 
         $permission_manage_projects = Permission::create([
-            'name' => 'manage projects'
+            'name' => 'manage_projects'
         ]);
 
-        $permission_edit_project = Permission::create([
-            'name' => 'edit project'
+        $permission_manage_tasks = Permission::create([
+            'name' => 'manage_tasks'
         ]);
 
-        $permission_delete_project = Permission::create([
-            'name' => 'delete project'
+        $permission_manage_invoices = Permission::create([
+            'name' => 'manage_invoice'
+        ]);
+
+        $permission_manage_clients = Permission::create([
+            'name' => 'manage_clients'
+        ]);
+
+        $permission_manage_settings = Permission::create([
+            'name' => 'manage_settings'
         ]);
 
 
-        $permissions_admin = [$permission_manage_users,
-            $permission_edit_user,
-            $permission_delete_user,
+        $permissions_admin = [
+            $permission_manage_users,
             $permission_manage_projects,
-            $permission_edit_project,
-            $permission_delete_project];
+            $permission_manage_tasks,
+            $permission_manage_invoices,
+            $permission_manage_clients,
+            $permission_manage_settings
+        ];
 
 
-        $permissions_general_user = [$permission_manage_projects, $permission_edit_project, $permission_delete_project];
+        $permissions_general_user = [$permission_manage_tasks];
 
 
         $role_admin->syncPermissions($permissions_admin);
