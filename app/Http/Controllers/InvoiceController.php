@@ -110,12 +110,17 @@ class InvoiceController extends Controller
     {
         $invoice->update($request->validated());
 
+
+        // Delete the items and rewrite again !
         $invoice->items()->delete();
+
         foreach ($request->items as $item) {
             $invoice->items()->create($item);
         }
 
-        return to_route('invoice.index')->with('message', 'Invoice has been updated');
+
+        return to_route('invoice.index')
+            ->with('success', "Invoice \"$invoice->invoice_number\" was updated");
 
     }
 
