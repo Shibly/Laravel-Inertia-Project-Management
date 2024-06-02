@@ -29,8 +29,13 @@ class RoleSeeder extends Seeder
             'name' => 'manage_tasks'
         ]);
 
+
+        $permission_manage_own_tasks = Permission::create([
+            'name' => 'manage_own_tasks'
+        ]);
+
         $permission_manage_invoices = Permission::create([
-            'name' => 'manage_invoice'
+            'name' => 'manage_invoices'
         ]);
 
         $permission_manage_clients = Permission::create([
@@ -48,7 +53,8 @@ class RoleSeeder extends Seeder
             $permission_manage_tasks,
             $permission_manage_invoices,
             $permission_manage_clients,
-            $permission_manage_settings
+            $permission_manage_settings,
+            $permission_manage_own_tasks
         ];
 
 

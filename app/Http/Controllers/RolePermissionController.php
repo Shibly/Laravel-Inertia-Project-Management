@@ -12,6 +12,7 @@ use Inertia\Response;
 use Inertia\ResponseFactory;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Artisan;
 
 class RolePermissionController extends Controller
 {
@@ -128,6 +129,10 @@ class RolePermissionController extends Controller
 
         $permissions = Permission::whereIn('name', $validated['permissions'])->get();
         $role->permissions()->sync($permissions);
+
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('config:cache');
 
         return to_route('allRoles')->with('success', 'Permissions assigned successfully.');
     }

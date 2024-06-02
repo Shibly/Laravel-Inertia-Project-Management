@@ -184,7 +184,7 @@ export default function TasksTable({
                                         Edit
                                     </Link>
 
-                                    {hasPermission && (
+                                    {!hasPermission && (
                                         <button
                                             onClick={() => deleteTask(task)}
                                             className="px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">

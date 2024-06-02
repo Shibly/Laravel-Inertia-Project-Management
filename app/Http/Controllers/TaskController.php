@@ -27,13 +27,6 @@ class TaskController extends Controller
     {
 
         $user = Auth::user();
-        if (!$user->can('manage_tasks')) {
-            return to_route('task.index')->with('warning', 'You do not have permission to create tasks.');
-        }
-
-
-        $user = Auth::user();
-
         $query = Task::query();
 
         $sortField = request("sort_field", 'created_at');
@@ -46,8 +39,8 @@ class TaskController extends Controller
             $query->where("status", request("status"));
         }
 
-        if ($user->can('manage_tasks')) {
-            if (!$user->can('manage_own_tasks')) {
+        if (!$user->can('manage_tasks')) {
+            if ($user->can('manage_own_tasks')) {
                 $query->where("assigned_user_id", $user->id);
             } else {
                 $query->whereRaw('1 = 0'); // No results will be returned
