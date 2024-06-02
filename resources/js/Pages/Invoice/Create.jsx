@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/react';
 
@@ -16,10 +16,14 @@ export default function Index({auth}) {
         tax: '',
         discount: '',
         shipping: '',
-        amount_paid: '',
-        balance_due: '',
+        amount_paid: 0,
+        balance_due: 0,
         items: [{description: '', quantity: 1, rate: 0, amount: 0}],
     });
+
+    useEffect(() => {
+        calculateTotals();
+    }, [data.items, data.tax, data.discount, data.shipping, data.amount_paid]);
 
     const handleAddItem = () => {
         setData('items', [
@@ -33,10 +37,28 @@ export default function Index({auth}) {
     };
 
     const handleItemChange = (index, field, value) => {
-        const newItems = data.items.map((item, i) =>
-            i === index ? {...item, [field]: value} : item
-        );
+        const newItems = data.items.map((item, i) => {
+            if (i === index) {
+                const newItem = {...item, [field]: value};
+                if (field === 'quantity' || field === 'rate') {
+                    newItem.amount = newItem.quantity * newItem.rate;
+                }
+                return newItem;
+            }
+            return item;
+        });
         setData('items', newItems);
+    };
+
+    const calculateTotals = () => {
+        const subtotal = data.items.reduce((total, item) => total + (item.amount || 0), 0);
+        const totalTax = subtotal * (data.tax / 100);
+        const totalDiscount = data.discount;
+        const totalShipping = data.shipping;
+        const totalAmount = subtotal + totalTax - totalDiscount + totalShipping;
+        const balanceDue = totalAmount - data.amount_paid;
+
+        setData('balance_due', balanceDue.toFixed(2));
     };
 
     const handleSubmit = (e) => {
@@ -52,7 +74,8 @@ export default function Index({auth}) {
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Create new
-                invoice</h2>}>
+                invoice</h2>}
+        >
             <Head title="Create new invoice"/>
 
             <div className="py-12">
@@ -141,19 +164,18 @@ export default function Index({auth}) {
                             <div className="mb-6">
                                 <label className="block text-gray-700 dark:text-gray-300 mb-1">Items</label>
                                 <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-md shadow-sm">
-                                    <div
-                                        className="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-blue-900 text-white p-2 rounded-md mb-4">
-                                        <div>Item</div>
+                                    <div className="grid grid-cols-6 gap-4 bg-blue-900 text-white p-2 rounded-md mb-4">
+                                        <div className="col-span-3">Item</div>
                                         <div>Quantity</div>
                                         <div>Rate</div>
                                         <div>Amount</div>
                                     </div>
                                     {data.items.map((item, index) => (
-                                        <div key={index} className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
+                                        <div key={index} className="grid grid-cols-6 gap-4 mb-4">
                                             <input
                                                 type="text"
                                                 placeholder="Description of service or product"
-                                                className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
+                                                className="mt-1 col-span-3 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                                 value={item.description}
                                                 onChange={(e) => handleItemChange(index, 'description', e.target.value)}
                                                 required
@@ -163,7 +185,7 @@ export default function Index({auth}) {
                                                 placeholder="Quantity"
                                                 className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                                 value={item.quantity}
-                                                onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                                                onChange={(e) => handleItemChange(index, 'quantity', parseFloat(e.target.value))}
                                                 required
                                             />
                                             <input
@@ -172,7 +194,7 @@ export default function Index({auth}) {
                                                 placeholder="Rate"
                                                 className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                                 value={item.rate}
-                                                onChange={(e) => handleItemChange(index, 'rate', e.target.value)}
+                                                onChange={(e) => handleItemChange(index, 'rate', parseFloat(e.target.value))}
                                                 required
                                             />
                                             <div className="flex items-center">
@@ -181,8 +203,8 @@ export default function Index({auth}) {
                                                     step="0.01"
                                                     placeholder="Amount"
                                                     className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
-                                                    value={item.amount}
-                                                    onChange={(e) => handleItemChange(index, 'amount', e.target.value)}
+                                                    value={item.amount.toFixed(2)}
+                                                    readOnly
                                                     required
                                                 />
                                                 <button
@@ -234,7 +256,7 @@ export default function Index({auth}) {
                                         step="0.01"
                                         className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                         value={data.tax}
-                                        onChange={(e) => setData('tax', e.target.value)}
+                                        onChange={(e) => setData('tax', parseFloat(e.target.value))}
                                     />
                                 </div>
                                 <div>
@@ -244,7 +266,7 @@ export default function Index({auth}) {
                                         step="0.01"
                                         className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                         value={data.discount}
-                                        onChange={(e) => setData('discount', e.target.value)}
+                                        onChange={(e) => setData('discount', parseFloat(e.target.value))}
                                     />
                                 </div>
                                 <div>
@@ -254,7 +276,7 @@ export default function Index({auth}) {
                                         step="0.01"
                                         className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                         value={data.shipping}
-                                        onChange={(e) => setData('shipping', e.target.value)}
+                                        onChange={(e) => setData('shipping', parseFloat(e.target.value))}
                                     />
                                 </div>
                             </div>
@@ -267,7 +289,7 @@ export default function Index({auth}) {
                                         step="0.01"
                                         className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                         value={data.amount_paid}
-                                        onChange={(e) => setData('amount_paid', e.target.value)}
+                                        onChange={(e) => setData('amount_paid', parseFloat(e.target.value))}
                                     />
                                 </div>
                                 <div>
@@ -277,7 +299,7 @@ export default function Index({auth}) {
                                         step="0.01"
                                         className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
                                         value={data.balance_due}
-                                        onChange={(e) => setData('balance_due', e.target.value)}
+                                        readOnly
                                     />
                                 </div>
                             </div>
