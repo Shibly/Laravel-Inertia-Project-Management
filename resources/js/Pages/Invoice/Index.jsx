@@ -87,10 +87,10 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                             <div className="mb-4 flex justify-between">
                                 <TextInput
                                     className="w-1/2 mr-2"
-                                    defaultValue={queryParams.po_number}
-                                    placeholder="PO Number"
-                                    onBlur={(e) => searchFieldChanged("po_number", e.target.value)}
-                                    onKeyPress={(e) => onKeyPress("po_number", e)}
+                                    defaultValue={queryParams.invoice_number}
+                                    placeholder="Invoice Number"
+                                    onBlur={(e) => searchFieldChanged("invoice_number", e.target.value)}
+                                    onKeyPress={(e) => onKeyPress("invoice_number", e)}
                                 />
                                 <TextInput
                                     className="w-1/2 mr-2"
@@ -123,7 +123,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                         </TableHeading>
 
                                         <TableHeading
-                                            name="po_number"
+                                            name="invoice_number"
                                             sort_field={queryParams.sort_field}
                                             sort_direction={queryParams.sort_direction}
                                             sortChanged={sortChanged}>
@@ -145,6 +145,15 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             sortChanged={sortChanged}>
                                             Due Date
                                         </TableHeading>
+
+                                        <TableHeading
+                                            name="status"
+                                            sort_field={queryParams.sort_field}
+                                            sort_direction={queryParams.sort_direction}
+                                            sortChanged={sortChanged}>
+                                            Status
+                                        </TableHeading>
+
                                         <th className="px-3 py-3 text-right">Actions</th>
                                     </tr>
                                     </thead>
@@ -161,7 +170,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             </th>
 
                                             <td className="px-3 py-2 text-nowrap">
-                                                {invoice.po_number}
+                                                {invoice.invoice_number}
                                             </td>
 
                                             <td className="px-3 py-2 text-nowrap">
@@ -173,17 +182,30 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             </td>
 
                                             <td className="px-3 py-2 text-nowrap">
+                                                {invoice.invoice_status}
+                                            </td>
+
+                                            <td className="px-3 py-2 text-nowrap">
                                                 <div className="flex space-x-2">
                                                     <Link
                                                         href={route("invoice.edit", invoice.id)}
                                                         className="w-full px-2 py-1 bg-orange-500 text-white text-center font-medium text-sm rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
                                                         Edit
                                                     </Link>
+
+                                                    <button
+                                                        className="w-full px-2 py-1 bg-green-500 text-white text-center font-medium text-sm rounded hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700">
+                                                        Download
+                                                    </button>
+
+
                                                     <button
                                                         onClick={(e) => deleteInvoice(invoice)}
                                                         className="w-full px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
                                                         Delete
                                                     </button>
+
+
                                                 </div>
 
                                             </td>

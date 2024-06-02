@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->date('date');
             $table->string('payment_terms')->nullable();
             $table->date('due_date')->nullable();
-            $table->string('po_number')->nullable();
+            $table->string('invoice_number')->nullable();
             $table->decimal('tax', 8, 2)->nullable();
             $table->decimal('discount', 8, 2)->nullable();
             $table->decimal('shipping', 8, 2)->nullable();

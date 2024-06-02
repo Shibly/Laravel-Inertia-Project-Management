@@ -29,7 +29,7 @@ class StoreInvoiceRequest extends FormRequest
             'date' => 'required|date',
             'payment_terms' => 'nullable|string|max:255',
             'due_date' => 'nullable|date',
-            'po_number' => 'nullable|string|max:255',
+            'invoice_number' => 'nullable|string|max:255',
             'tax' => 'nullable|numeric|min:0',
             'discount' => 'nullable|numeric|min:0',
             'shipping' => 'nullable|numeric|min:0',

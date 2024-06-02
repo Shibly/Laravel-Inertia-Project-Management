@@ -10,7 +10,7 @@ export default function Index({auth}) {
         date: '',
         payment_terms: '',
         due_date: '',
-        po_number: '',
+        invoice_number: '',
         notes: '',
         terms: '',
         tax: '',
@@ -71,6 +71,7 @@ export default function Index({auth}) {
                                         onChange={(e) => setData('from', e.target.value)}
                                     />
                                 </div>
+
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">Who is this invoice to?
                                         (required)</label>
@@ -82,6 +83,7 @@ export default function Index({auth}) {
                                         onChange={(e) => setData('to', e.target.value)}
                                     />
                                 </div>
+
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">Ship To (optional)</label>
                                     <input
@@ -91,6 +93,7 @@ export default function Index({auth}) {
                                         onChange={(e) => setData('ship_to', e.target.value)}
                                     />
                                 </div>
+
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                     <div>
                                         <label className="block text-gray-700 dark:text-gray-300">Date</label>
@@ -102,6 +105,7 @@ export default function Index({auth}) {
                                             onChange={(e) => setData('date', e.target.value)}
                                         />
                                     </div>
+
                                     <div>
                                         <label className="block text-gray-700 dark:text-gray-300">Payment Terms</label>
                                         <input
@@ -111,6 +115,7 @@ export default function Index({auth}) {
                                             onChange={(e) => setData('payment_terms', e.target.value)}
                                         />
                                     </div>
+
                                     <div>
                                         <label className="block text-gray-700 dark:text-gray-300">Due Date</label>
                                         <input
@@ -124,12 +129,12 @@ export default function Index({auth}) {
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-gray-700 dark:text-gray-300">PO Number</label>
+                                <label className="block text-gray-700 dark:text-gray-300">Invoice Number</label>
                                 <input
                                     type="text"
                                     className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
-                                    value={data.po_number}
-                                    onChange={(e) => setData('po_number', e.target.value)}
+                                    value={data.invoice_number}
+                                    onChange={(e) => setData('invoice_number', e.target.value)}
                                 />
                             </div>
 

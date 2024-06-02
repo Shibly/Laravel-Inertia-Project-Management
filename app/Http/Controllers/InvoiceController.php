@@ -25,8 +25,8 @@ class InvoiceController extends Controller
         $sortField = request("sort_field", 'created_at');
         $sortDirection = request("sort_direction", "desc");
 
-        if (request("po_number")) {
-            $query->where("po_number", "like", "%" . request("po_number") . "%");
+        if (request("invoice_number")) {
+            $query->where("invoice_number", "like", "%" . request("invoice_number") . "%");
         }
         if (request("to")) {
             $query->where("to", request("to"));
