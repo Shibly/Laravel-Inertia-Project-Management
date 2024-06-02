@@ -14,6 +14,19 @@ export const PROJECT_STATUS_TEXT_MAP = {
     on_hold: "On Hold",
 };
 
+export const INVOICE_STATUS_CLASS_MAP = {
+    pending: "bg-amber-500",
+    paid: "bg-blue-500",
+    partially_paid: "bg-green-500",
+
+}
+
+export const INVOICE_STATUS_TEXT_MAP = {
+    pending: "Pending",
+    paid: "Paid",
+    partially_paid: "Partially Paid"
+}
+
 export const TASK_STATUS_CLASS_MAP = {
     pending: "bg-amber-500",
     in_progress: "bg-blue-500",

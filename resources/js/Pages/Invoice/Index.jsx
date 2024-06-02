@@ -3,7 +3,7 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, router} from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
-
+import {INVOICE_STATUS_CLASS_MAP, INVOICE_STATUS_TEXT_MAP} from "@/constants.jsx";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -182,7 +182,10 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             </td>
 
                                             <td className="px-3 py-2 text-nowrap">
-                                                {invoice.invoice_status}
+                                                <span
+                                                    className={"px-2 py-1 rounded text-white " + INVOICE_STATUS_CLASS_MAP[invoice.invoice_status]}>
+                                                         {INVOICE_STATUS_TEXT_MAP[invoice.invoice_status]}
+                                                </span>
                                             </td>
 
                                             <td className="px-3 py-2 text-nowrap">
