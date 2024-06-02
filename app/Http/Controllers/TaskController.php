@@ -25,6 +25,13 @@ class TaskController extends Controller
      */
     public function index(): Response|ResponseFactory|RedirectResponse
     {
+
+        $user = Auth::user();
+        if (!$user->can('manage_tasks')) {
+            return to_route('task.index')->with('warning', 'You do not have permission to create tasks.');
+        }
+
+
         $user = Auth::user();
 
         $query = Task::query();
@@ -65,7 +72,7 @@ class TaskController extends Controller
     {
 
         $user = Auth::user();
-        if ($user->can('manage_tasks')) {
+        if (!$user->can('manage_tasks')) {
             return to_route('task.index')->with('warning', 'You do not have permission to create tasks.');
         }
 
