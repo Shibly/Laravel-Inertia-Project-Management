@@ -39,7 +39,7 @@ class StoreInvoiceRequest extends FormRequest
             'terms' => 'nullable|string',
             'items' => 'required|array',
             'items.*.description' => 'required|string|max:255',
-            'items.*.quantity' => 'required|numeric|min:1',
+            'items.*.quantity' => 'required|numeric|min:0',
             'items.*.rate' => 'required|numeric|min:0',
             'items.*.amount' => 'required|numeric|min:0',
         ];
