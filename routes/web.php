@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReplyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -24,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('settings', SettingsController::class);
     Route::resource('reply', TaskReplyController::class);
     Route::resource('client', ClientController::class);
+    Route::resource('invoice', InvoiceController::class);
 
 
     /**
