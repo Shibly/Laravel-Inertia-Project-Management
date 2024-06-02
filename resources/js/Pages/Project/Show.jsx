@@ -5,9 +5,6 @@ import TasksTable from "../Task/TasksTable";
 
 export default function Show({auth, success, project, tasks, queryParams}) {
 
-    console.log(project);
-
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -31,7 +28,8 @@ export default function Show({auth, success, project, tasks, queryParams}) {
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <div className="flex justify-between items-center mb-6">
                                 <span className="px-2 py-1 rounded text-sm">
-                                    Client Name : <span className="rounded text-white bg-indigo-500 dark:bg-indigo-700 px-2 py-1">{project.client.name}</span>
+                                    Client Name : <span
+                                    className="rounded text-white bg-indigo-500 dark:bg-indigo-700 px-2 py-1">{project.client.name}</span>
 
                                 </span>
                             </div>

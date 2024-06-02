@@ -10,14 +10,22 @@ use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|ResponseFactory
+    public function index(): Response|ResponseFactory|RedirectResponse
     {
+
+
+        if (!Auth::user()->can('manage_users')) {
+            return to_route('dashboard')->with('warning', 'You do not have permission to access this page.');
+        }
+
+
         $query = User::query();
 
         $sortField = request("sort_field", 'created_at');
@@ -83,11 +91,19 @@ class UserController extends Controller
         //
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * @param User $user
+     * @return RedirectResponse|Response|ResponseFactory
      */
-    public function edit(User $user): Response|ResponseFactory
+    public function edit(User $user): Response|ResponseFactory|RedirectResponse
     {
+
+        if (!Auth::user()->can('manage_users')) {
+            return to_route('dashboard')->with('warning', 'You do not have permission to access this page.');
+        }
+
+
         return inertia('User/Edit', [
             'user' => new UserCrudResource($user),
             'roles' => Role::all()

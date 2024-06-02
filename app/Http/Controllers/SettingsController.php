@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOptionRequest;
 use App\Http\Requests\UpdateOptionRequest;
 use App\Models\Option;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -13,8 +15,15 @@ class SettingsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|ResponseFactory
+    public function index(): Response|ResponseFactory|RedirectResponse
     {
+
+
+
+        if (!Auth::user()->can('manage_settings')) {
+            return to_route('dashboard')->with('warning', 'You do not have access to this page');
+        }
+
         return inertia("Settings/Index", [
             'options' => Option::all(),
         ]);

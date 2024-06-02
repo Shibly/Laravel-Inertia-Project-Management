@@ -6,15 +6,14 @@ import {TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP} from "@/constants.jsx";
 import {Link, router} from "@inertiajs/react";
 
 export default function TasksTable({
+                                       warning,
                                        tasks,
+                                       hasPermission,
                                        success,
                                        queryParams = null,
                                        hideProjectColumn = false,
                                    }) {
     queryParams = queryParams || {};
-
-
-    console.log(tasks);
 
     const searchFieldChanged = (name, value) => {
         if (value) {
@@ -55,6 +54,13 @@ export default function TasksTable({
 
     return (
         <>
+            {warning && (
+                <div className="bg-red-500 py-2 px-4 text-white rounded mb-4">
+                    {warning}
+                </div>
+            )}
+
+
             {success && (
                 <div className="bg-emerald-500 py-2 px-4 text-white rounded mb-4">
                     {success}
@@ -145,7 +151,8 @@ export default function TasksTable({
                             <td className="px-3 py-2">{task.id}</td>
                             <td className="px-3 py-2">
                                 {task.task_attachment ? (
-                                    <a className="text-white" href={task.task_attachment} download={task.task_attachment}
+                                    <a className="text-white" href={task.task_attachment}
+                                       download={task.task_attachment}
                                        style={{textDecoration: 'none'}}>
                                         Download Attachment
                                     </a>
@@ -176,11 +183,15 @@ export default function TasksTable({
                                         className="px-2 py-1 bg-orange-500 text-white text-center font-medium text-sm rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
                                         Edit
                                     </Link>
-                                    <button
-                                        onClick={() => deleteTask(task)}
-                                        className="px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
-                                        Delete
-                                    </button>
+
+                                    {hasPermission && (
+                                        <button
+                                            onClick={() => deleteTask(task)}
+                                            className="px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
+                                            Delete
+                                        </button>
+
+                                    )}
                                 </div>
 
                             </td>

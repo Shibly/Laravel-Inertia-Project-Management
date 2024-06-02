@@ -23,8 +23,14 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|ResponseFactory
+    public function index(): Response|ResponseFactory|RedirectResponse
     {
+
+        if (!Auth::user()->can('manage_projects')) {
+            return to_route('dashboard')->with('warning', 'You do not have access to this page');
+        }
+
+
         $query = Project::query();
 
         $sortField = request("sort_field", 'created_at');
@@ -81,8 +87,13 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project): Response|ResponseFactory
+    public function show(Project $project): Response|ResponseFactory|RedirectResponse
     {
+
+        if (!Auth::user()->can('manage_projects')) {
+            return to_route('dashboard')->with('warning', 'You do not have access to this page');
+        }
+
         $query = $project->tasks();
 
         $sortField = request("sort_field", 'created_at');

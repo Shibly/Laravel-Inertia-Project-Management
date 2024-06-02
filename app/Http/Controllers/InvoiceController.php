@@ -8,18 +8,26 @@ use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
 class InvoiceController extends Controller
 {
 
+
     /**
-     * @return Response|ResponseFactory
+     * @return Response|ResponseFactory|RedirectResponse
      */
 
-    public function index(): Response|ResponseFactory
+    public function index(): Response|ResponseFactory|RedirectResponse
     {
+
+        if (!Auth::user()->can('manage_invoices')) {
+            return to_route('dashboard')->with('warning', 'You do not have permission to access this page.');
+        }
+
+
         $query = Invoice::query();
 
 
@@ -44,11 +52,19 @@ class InvoiceController extends Controller
         ]);
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * @return Response|ResponseFactory|RedirectResponse
      */
-    public function create(): Response|ResponseFactory
+
+    public function create(): Response|ResponseFactory|RedirectResponse
     {
+
+        if (!Auth::user()->can('manage_invoices')) {
+            return to_route('dashboard')->with('warning', 'You do not have permission to access this page.');
+        }
+
+
         return inertia("Invoice/Create");
     }
 
@@ -90,10 +106,15 @@ class InvoiceController extends Controller
 
     /**
      * @param Invoice $invoice
-     * @return Response|ResponseFactory
+     * @return RedirectResponse|Response|ResponseFactory
      */
-    public function edit(Invoice $invoice): Response|ResponseFactory
+    public function edit(Invoice $invoice): Response|ResponseFactory|RedirectResponse
     {
+        if (!Auth::user()->can('manage_invoices')) {
+            return to_route('dashboard')->with('warning', 'You do not have permission to access this page.');
+        }
+
+
         return inertia("Invoice/Edit", [
             'invoice' => new InvoiceResource($invoice->load('items'))
         ]);

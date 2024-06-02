@@ -23,8 +23,10 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|ResponseFactory
+    public function index(): Response|ResponseFactory|RedirectResponse
     {
+        $user = Auth::user();
+
         $query = Task::query();
 
         $sortField = request("sort_field", 'created_at');
@@ -35,6 +37,14 @@ class TaskController extends Controller
         }
         if (request("status")) {
             $query->where("status", request("status"));
+        }
+
+        if ($user->can('manage_tasks')) {
+            if (!$user->can('manage_own_tasks')) {
+                $query->where("assigned_user_id", $user->id);
+            } else {
+                $query->whereRaw('1 = 0'); // No results will be returned
+            }
         }
 
         $tasks = $query->orderBy($sortField, $sortDirection)
@@ -51,8 +61,15 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response|ResponseFactory
+    public function create(): Response|ResponseFactory|RedirectResponse
     {
+
+        $user = Auth::user();
+        if ($user->can('manage_tasks')) {
+            return to_route('task.index')->with('warning', 'You do not have permission to create tasks.');
+        }
+
+
         $projects = Project::query()->orderBy('name', 'asc')->get();
         $users = User::query()->orderBy('name', 'asc')->get();
 

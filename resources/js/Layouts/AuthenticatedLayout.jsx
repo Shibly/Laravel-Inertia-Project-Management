@@ -28,17 +28,23 @@ export default function Authenticated({user, header, children}) {
                                 </NavLink>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('user.index')} active={route().current('user.index')}>
-                                    Users
-                                </NavLink>
-                            </div>
+                            {hasAdminRole && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('user.index')} active={route().current('user.index')}>
+                                        Users
+                                    </NavLink>
+                                </div>
+                            )}
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('client.index')} active={route().current('client.index')}>
-                                    Clients
-                                </NavLink>
-                            </div>
+
+                            {hasAdminRole && (
+
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('client.index')} active={route().current('client.index')}>
+                                        Clients
+                                    </NavLink>
+                                </div>
+                            )}
 
                             {hasAdminRole && (
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -55,16 +61,22 @@ export default function Authenticated({user, header, children}) {
                                 </NavLink>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('invoice.index')} action={route().current('invoice.index')}>
-                                    Invoices
-                                </NavLink>
-                            </div>
+                            {hasAdminRole && (
 
-                            <div className="hidden sm:flex sm:items-center sm:ms-6">
-                                <div className="ms-3 relative">
-                                    <Dropdown>
-                                        <Dropdown.Trigger>
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('invoice.index')} action={route().current('invoice.index')}>
+                                        Invoices
+                                    </NavLink>
+                                </div>
+                            )}
+
+
+                            {hasAdminRole && (
+
+                                <div className="hidden sm:flex sm:items-center sm:ms-6">
+                                    <div className="ms-3 relative">
+                                        <Dropdown>
+                                            <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
@@ -86,18 +98,19 @@ export default function Authenticated({user, header, children}) {
                                                 </svg>
                                             </button>
                                         </span>
-                                        </Dropdown.Trigger>
+                                            </Dropdown.Trigger>
 
-                                        <Dropdown.Content>
-                                            <Dropdown.Link href={route('allRoles')}>Roles &
-                                                Permissions</Dropdown.Link>
-                                            <Dropdown.Link href="" method="post" as="button">
-                                                SMTP Settings
-                                            </Dropdown.Link>
-                                        </Dropdown.Content>
-                                    </Dropdown>
+                                            <Dropdown.Content>
+                                                <Dropdown.Link href={route('allRoles')}>Roles &
+                                                    Permissions</Dropdown.Link>
+                                                <Dropdown.Link href="" method="post" as="button">
+                                                    SMTP Settings
+                                                </Dropdown.Link>
+                                            </Dropdown.Content>
+                                        </Dropdown>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
 
                         </div>

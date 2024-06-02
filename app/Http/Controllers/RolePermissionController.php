@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\updateRoleRequest;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 use Spatie\Permission\Models\Permission;
@@ -17,10 +18,15 @@ class RolePermissionController extends Controller
 
 
     /**
-     * @return Response|ResponseFactory
+     * @return Response|ResponseFactory|RedirectResponse
      */
-    public function getRoles(): Response|ResponseFactory
+
+    public function getRoles(): Response|ResponseFactory|RedirectResponse
     {
+
+        if (!Auth::user()->can('manage_settings')) {
+            return to_route('dashboard')->with('warning', 'You do not have access to this page');
+        }
 
 
         $query = Role::query();
