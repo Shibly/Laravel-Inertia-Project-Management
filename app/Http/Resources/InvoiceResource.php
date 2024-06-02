@@ -20,12 +20,12 @@ class InvoiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'description' => $this->description,
-            'quantity' => $this->quantity,
-            'rate' => $this->rate,
-            'amount' => $this->amount,
+            'bill_to' => $this->to,
+            'date' => $this->date,
+            'due_date' => $this->due_date,
+            'amount' => $this->amount_paid,
+            'po_number' => $this->po_number,
             'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

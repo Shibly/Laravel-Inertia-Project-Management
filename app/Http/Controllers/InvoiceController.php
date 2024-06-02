@@ -19,7 +19,25 @@ class InvoiceController extends Controller
 
     public function index(): Response|ResponseFactory
     {
-        $invoices = Invoice::with('items')->get();
+        $query = Invoice::query();
+
+
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "desc");
+
+        if (request("po_number")) {
+            $query->where("po_number", "like", "%" . request("po_number") . "%");
+        }
+        if (request("to")) {
+            $query->where("to", request("to"));
+        }
+
+
+        $invoices = $query->orderBy($sortField, $sortDirection)
+            ->paginate(10)
+            ->onEachSide(1);
+
+
         return inertia("Invoice/Index", [
             'invoices' => InvoiceResource::collection($invoices)
         ]);
@@ -33,16 +51,23 @@ class InvoiceController extends Controller
         return inertia("Invoice/Create");
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * @param StoreInvoiceRequest $request
+     * @return RedirectResponse
      */
+
     public function store(StoreInvoiceRequest $request): RedirectResponse
     {
-        $invoice = $request->validated();
-        foreach ($request->items as $item) {
+        $validatedData = $request->validated();
+
+        // Create the invoice
+        $invoice = Invoice::create($validatedData);
+
+        // Associate items with the invoice
+        foreach ($validatedData['items'] as $item) {
             $invoice->items()->create($item);
         }
-
         return to_route('invoice.index')->with('message', 'Invoice has been successfully created');
 
     }
