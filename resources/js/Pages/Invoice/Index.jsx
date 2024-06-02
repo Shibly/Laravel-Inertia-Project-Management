@@ -6,10 +6,13 @@ import TableHeading from "@/Components/TableHeading";
 import {INVOICE_STATUS_CLASS_MAP, INVOICE_STATUS_TEXT_MAP} from "@/constants.jsx";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import axios from 'axios';
 
 const MySwal = withReactContent(Swal);
+
 export default function Index({auth, invoices, queryParams = null, success}) {
     queryParams = queryParams || {};
+
     const searchFieldChanged = (name, value) => {
         if (value) {
             queryParams[name] = value;
@@ -43,7 +46,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
     const deleteInvoice = (invoice) => {
         MySwal.fire({
             title: 'Are you sure?',
-            text: "Do you really want to delete the invoice ?",
+            text: "Do you really want to delete the invoice?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it',
@@ -56,6 +59,18 @@ export default function Index({auth, invoices, queryParams = null, success}) {
         });
     };
 
+    const downloadInvoice = (invoice) => {
+        axios.get(route("invoice.download", invoice.id), {
+            responseType: 'blob',
+        }).then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `invoice_${invoice.invoice_number}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+        });
+    };
 
     return (
         <AuthenticatedLayout
@@ -63,7 +78,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        invoices
+                        Invoices
                     </h2>
                     <Link
                         href={route("invoice.create")}
@@ -73,7 +88,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                 </div>
             }
         >
-            <Head title="Projects"/>
+            <Head title="Invoices"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -197,20 +212,17 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                                     </Link>
 
                                                     <button
+                                                        onClick={() => downloadInvoice(invoice)}
                                                         className="w-full px-2 py-1 bg-green-500 text-white text-center font-medium text-sm rounded hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700">
                                                         Download
                                                     </button>
 
-
                                                     <button
-                                                        onClick={(e) => deleteInvoice(invoice)}
+                                                        onClick={() => deleteInvoice(invoice)}
                                                         className="w-full px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
                                                         Delete
                                                     </button>
-
-
                                                 </div>
-
                                             </td>
                                         </tr>
                                     ))}
@@ -223,6 +235,5 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                 </div>
             </div>
         </AuthenticatedLayout>
-
     );
 }

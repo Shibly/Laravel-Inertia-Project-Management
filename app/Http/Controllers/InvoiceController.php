@@ -6,6 +6,7 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -126,4 +127,18 @@ class InvoiceController extends Controller
 
         return to_route('invoice.index')->with('message', 'Invoice has been removed');
     }
+
+
+    /**
+     * @param Invoice $invoice
+     * @return \Illuminate\Http\Response
+     */
+    public function download(Invoice $invoice): \Illuminate\Http\Response
+    {
+        $pdf = Pdf::loadView('invoices.pdf', compact('invoice'))->setPaper('a4');
+
+        return $pdf->download('invoice_' . $invoice->invoice_number . '.pdf');
+    }
+
+
 }
