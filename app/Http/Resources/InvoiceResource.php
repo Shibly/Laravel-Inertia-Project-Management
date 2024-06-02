@@ -34,6 +34,7 @@ class InvoiceResource extends JsonResource
             'shipping' => $this->shipping,
             'amount_paid' => $this->amount_paid,
             'balance_due' => $this->balance_due,
+            'invoice_status' => $this->invoice_status,
             'items' => InvoiceItemResource::collection($this->items),
         ];
     }
