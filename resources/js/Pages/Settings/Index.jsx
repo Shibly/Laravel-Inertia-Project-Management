@@ -4,7 +4,7 @@ import {Head, useForm} from '@inertiajs/react';
 import axios from 'axios';
 
 export default function Index({auth}) {
-    const {data, setData, success, post, errors} = useForm({
+    const {data, setData, success, post, reset, errors} = useForm({
         smtp_host: '',
         smtp_port: '',
         smtp_username: '',
@@ -36,7 +36,12 @@ export default function Index({auth}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('settings.smtp.store'));
+        post(route('settings.smtp.store'), {
+            onSuccess: () => {
+                // Use Inertia flash message to display the success message
+                reset();
+            }
+        });
     };
 
     return (

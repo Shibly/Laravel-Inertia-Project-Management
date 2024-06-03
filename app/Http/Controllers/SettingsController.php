@@ -3,12 +3,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreOptionRequest;
 use App\Models\Option;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -48,7 +47,7 @@ class SettingsController extends Controller
         set_option('mail_driver', $request->mail_driver);
         set_option('from_email_address', $request->from_email_address);
 
-        return redirect()->route('settings.index')
+        return redirect()->route('dashboard')
             ->with('success', 'SMTP credentials updated successfully.');
     }
 

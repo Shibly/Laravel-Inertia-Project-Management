@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head} from '@inertiajs/react';
 
-export default function Dashboard({auth, warning}) {
+export default function Dashboard({auth, warning, success}) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -11,6 +11,12 @@ export default function Dashboard({auth, warning}) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                    {success && (
+                        <div className="bg-emerald-500 py-2 px-4 text-white rounded mb-4">
+                            {success}
+                        </div>
+                    )}
 
                     {warning && (
                         <div className="bg-red-500 py-2 px-4 text-white rounded mb-4">
