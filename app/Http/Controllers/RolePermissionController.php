@@ -129,9 +129,9 @@ class RolePermissionController extends Controller
         $permissions = Permission::whereIn('name', $validated['permissions'])->get();
         $role->permissions()->sync($permissions);
 
-//        Artisan::call('cache:clear');
-//        Artisan::call('config:clear');
-//        Artisan::call('config:cache');
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('config:cache');
 
         return to_route('allRoles')->with('success', 'Permissions assigned successfully.');
     }
