@@ -64,7 +64,7 @@ export default function Authenticated({user, header, children}) {
                             {hasAdminRole && (
 
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                    <NavLink href={route('invoice.index')} action={route().current('invoice.index')}>
+                                    <NavLink href={route('invoice.index')} active={route().current('invoice.index')}>
                                         Invoices
                                     </NavLink>
                                 </div>
