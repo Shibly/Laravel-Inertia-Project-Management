@@ -7,12 +7,14 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
+use App\Mail\TaskAssigned;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Response;
@@ -94,7 +96,17 @@ class TaskController extends Controller
             $data['attachment_path'] = $attachment->store('task_attachments/' . Str::random(), 'public');
         }
 
-        Task::create($data);
+        $task = Task::create($data);
+        $assignedUser = User::find($data['assigned_user_id']);
+
+
+        /**
+         * Send email to assigned user
+         */
+
+        if ($assignedUser) {
+            Mail::to($assignedUser->email)->send(new TaskAssigned($task));
+        }
 
         return to_route('task.index')
             ->with('success', 'Task was created');
