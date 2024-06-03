@@ -22,12 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('project', ProjectController::class);
     Route::resource('task', TaskController::class);
     Route::resource('user', UserController::class);
-    Route::resource('settings', SettingsController::class);
     Route::resource('reply', TaskReplyController::class);
     Route::resource('client', ClientController::class);
     Route::resource('invoice', InvoiceController::class);
     Route::get('invoice/{invoice}/download', [InvoiceController::class, 'download'])->name('invoice.download');
-
 
 
     /**
@@ -42,6 +40,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('updateRole/{role}', [RolePermissionController::class, 'updateRole'])->name('updateRole');
     Route::get('assignPermissionsToRole/{role}', [RolePermissionController::class, 'assignPermissionsToRole'])->name('assignPermissionsToRole');
     Route::post('assignPermissions/{role}', [RolePermissionController::class, 'assignPermissions'])->name('assignPermissions');
+
+
+    /**
+     * Application Settings
+     */
+
+
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings/smtp', [SettingsController::class, 'storeSmtpCredentials'])->name('settings.smtp.store');
+    Route::get('/settings/smtp', [SettingsController::class, 'getSmtpCredentials'])->name('settings.smtp.get');
+
 
 
 });

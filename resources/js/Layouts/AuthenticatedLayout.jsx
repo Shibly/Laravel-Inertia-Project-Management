@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
@@ -103,7 +103,7 @@ export default function Authenticated({user, header, children}) {
                                             <Dropdown.Content>
                                                 <Dropdown.Link href={route('allRoles')}>Roles &
                                                     Permissions</Dropdown.Link>
-                                                <Dropdown.Link href="" method="post" as="button">
+                                                <Dropdown.Link href={route('settings.index')} as="button">
                                                     SMTP Settings
                                                 </Dropdown.Link>
                                             </Dropdown.Content>
