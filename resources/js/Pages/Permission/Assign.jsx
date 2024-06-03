@@ -32,6 +32,12 @@ export default function Index({auth, permissions, role}) {
         }
     }, [recentlySuccessful]);
 
+
+    function formatPermissionName(name) {
+        let words = name.split('_');
+        return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -54,14 +60,17 @@ export default function Index({auth, permissions, role}) {
                                             value={permission.name}
                                             checked={data.permissions.includes(permission.name)}
                                             onChange={() => handleCheckboxChange(permission.name)}
-                                            className="mr-2"
+                                            className="mr-2 h-5 w-5 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-offset-gray-800"
                                         />
-                                        <label htmlFor={`permission-${permission.id}`}>{permission.name}</label>
+                                        <label htmlFor={`permission-${permission.id}`}
+                                               className="text-gray-200 text-sm font-medium">
+                                            {formatPermissionName(permission.name)}
+                                        </label>
                                     </div>
                                 ))}
                                 <button
                                     type="submit"
-                                    className="col-span-full bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                                    className="col-span-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50"
                                     disabled={processing}
                                 >
                                     Assign Permissions
