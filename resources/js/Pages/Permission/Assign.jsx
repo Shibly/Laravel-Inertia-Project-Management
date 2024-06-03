@@ -1,11 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/react';
+import {useEffect} from 'react';
 
 export default function Index({auth, permissions, role}) {
     const assignedPermissions = role.permissions.map(permission => permission.name);
 
-    const {data, setData, post, processing, errors} = useForm({
-        permissions: assignedPermissions
+    const {data, setData, post, processing, errors, reset, recentlySuccessful} = useForm({
+        permissions: assignedPermissions,
     });
 
     const handleCheckboxChange = (permissionName) => {
@@ -17,8 +18,19 @@ export default function Index({auth, permissions, role}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('assignPermissions', {role: role.id}));
+        post(route('assignPermissions', {role: role.id}), {
+            onSuccess: () => {
+                // Use Inertia flash message to display the success message
+                reset();
+            }
+        });
     };
+
+    useEffect(() => {
+        if (recentlySuccessful) {
+            alert('Permissions have been successfully assigned.');
+        }
+    }, [recentlySuccessful]);
 
     return (
         <AuthenticatedLayout
