@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSmtpRequest;
 use App\Models\Option;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -27,25 +28,17 @@ class SettingsController extends Controller
         ]);
     }
 
-    public function storeSmtpCredentials(Request $request): RedirectResponse
+    public function storeSmtpCredentials(StoreSmtpRequest $request): RedirectResponse
     {
-        $request->validate([
-            'smtp_host' => 'required|string',
-            'smtp_port' => 'required|integer',
-            'smtp_username' => 'required|string',
-            'smtp_password' => 'required|string',
-            'smtp_encryption' => 'nullable|string',
-            'mail_driver' => 'nullable|string',
-            'from_email_address' => 'nullable|string',
-        ]);
+        $data = $request->validated();
 
-        set_option('smtp_host', $request->smtp_host);
-        set_option('smtp_port', $request->smtp_port);
-        set_option('smtp_username', $request->smtp_username);
-        set_option('smtp_password', $request->smtp_password);
-        set_option('smtp_encryption', $request->smtp_encryption);
-        set_option('mail_driver', $request->mail_driver);
-        set_option('from_email_address', $request->from_email_address);
+        set_option('smtp_host', $data['smtp_host']);
+        set_option('smtp_port', $data['smtp_port']);
+        set_option('smtp_username', $data['smtp_username']);
+        set_option('smtp_password', $data['smtp_password']);
+        set_option('smtp_encryption', $data['smtp_encryption']);
+        set_option('mail_driver', $data['mail_driver']);
+        set_option('from_email_address', $data['from_email_address']);
 
         return redirect()->route('dashboard')
             ->with('success', 'SMTP credentials updated successfully.');
