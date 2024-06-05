@@ -28,7 +28,7 @@ class UpdateTaskRequest extends FormRequest
             'task_attachment' => ['nullable', 'file'],
             "description" => ['nullable', 'string'],
             'due_date' => ['nullable', 'date'],
-            'estimated_time' => ['required'],
+            'estimated_time' => ['nullable'],
             'project_id' => ['required', 'exists:projects,id'],
             'assigned_user_id' => ['required', 'exists:users,id'],
             'status' => [
