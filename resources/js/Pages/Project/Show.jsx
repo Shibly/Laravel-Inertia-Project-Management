@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link} from "@inertiajs/react";
 import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP,} from "@/constants.jsx";
 import TasksTable from "../Task/TasksTable";
+import Description from "@/Components/Description.jsx";
 
 export default function Show({auth, success, project, tasks, queryParams}) {
 
@@ -98,7 +99,8 @@ export default function Show({auth, success, project, tasks, queryParams}) {
                                 <h2 className="text-xl font-bold mb-4">Project Description</h2>
                                 <div
                                     className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-300 dark:border-gray-700">
-                                    <p className="text-gray-900 dark:text-gray-100">{project.description}</p>
+                                    <p className="text-gray-900 dark:text-gray-100"><Description
+                                        content={project.description}/></p>
                                 </div>
                             </div>
                         </div>

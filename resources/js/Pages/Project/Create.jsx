@@ -5,6 +5,9 @@ import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
+import QuillEditor from "@/Components/QuillEditor.jsx";
+import 'react-quill/dist/quill.snow.css';
+import "@/Components/quillEditorStyles.css"
 
 
 export default function Create({auth, clients}) {
@@ -42,23 +45,7 @@ export default function Create({auth, clients}) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <form
                             onSubmit={onSubmit}
-                            className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
-                        >
-                            {/*<div>*/}
-                            {/*    <InputLabel*/}
-                            {/*        htmlFor="project_image_path"*/}
-                            {/*        value="Project Image"*/}
-                            {/*    />*/}
-                            {/*    <TextInput*/}
-                            {/*        id="project_image_path"*/}
-                            {/*        type="file"*/}
-                            {/*        name="image"*/}
-                            {/*        className="mt-1 block w-full"*/}
-                            {/*        onChange={(e) => setData("image", e.target.files[0])}*/}
-                            {/*    />*/}
-                            {/*    <InputError message={errors.image} className="mt-2"/>*/}
-                            {/*</div>*/}
-
+                            className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
 
                             <div className="mt-4">
                                 <InputLabel htmlFor="project_client" value="Select Client"/>
@@ -67,8 +54,7 @@ export default function Create({auth, clients}) {
                                     name="client_id"
                                     id="client_id"
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData("client_id", e.target.value)}
-                                >
+                                    onChange={(e) => setData("client_id", e.target.value)}>
                                     <option value="">Select Client</option>
                                     {clients.data.map((client) => (
                                         <option value={client.id} key={client.id}>
@@ -102,12 +88,11 @@ export default function Create({auth, clients}) {
                                     value="Project Description"
                                 />
 
-                                <TextAreaInput
+                                <QuillEditor
                                     id="project_description"
                                     name="description"
                                     value={data.description}
-                                    className="mt-1 block w-full h-40"
-                                    onChange={(e) => setData("description", e.target.value)}
+                                    onChange={(content) => setData('description', content)}
                                 />
 
                                 <InputError message={errors.description} className="mt-2"/>

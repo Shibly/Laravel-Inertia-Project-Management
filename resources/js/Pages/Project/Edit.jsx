@@ -5,6 +5,10 @@ import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head, Link, useForm} from "@inertiajs/react";
+import QuillEditor from "@/Components/QuillEditor.jsx";
+import 'react-quill/dist/quill.snow.css';
+import "@/Components/quillEditorStyles.css"
+
 
 export default function Create({auth, project, clients}) {
     const {data, setData, post, errors, reset} = useForm({
@@ -109,12 +113,11 @@ export default function Create({auth, project, clients}) {
                                     value="Project Description"
                                 />
 
-                                <TextAreaInput
+                                <QuillEditor
                                     id="project_description"
                                     name="description"
                                     value={data.description}
-                                    className="mt-1 block w-full h-40"
-                                    onChange={(e) => setData("description", e.target.value)}
+                                    onChange={(content) => setData('description', content)}
                                 />
 
                                 <InputError message={errors.description} className="mt-2"/>

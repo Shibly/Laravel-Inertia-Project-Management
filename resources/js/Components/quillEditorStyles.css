@@ -1,0 +1,42 @@
+/* quillEditorStyles.css */
+
+/* Basic Quill styling adjustments for dark mode */
+.ql-container.ql-snow {
+    background-color: #2d3748; /* Tailwind dark background */
+    color: #e2e8f0; /* Tailwind light text */
+}
+
+/*.ql-toolbar.ql-snow {*/
+/*    background-color: #4a5568; !* Tailwind dark background *!*/
+/*    border: 1px solid #2d3748;*/
+/*}*/
+
+.ql-editor {
+    background-color: #2d3748; /* Tailwind dark background */
+    color: #e2e8f0; /* Tailwind light text */
+}
+
+.ql-editor.ql-blank::before {
+    color: #a0aec0; /* Placeholder text color */
+}
+
+/* Adjusting the color of the Quill icons */
+.ql-toolbar .ql-stroke {
+    stroke: #e2e8f0; /* Tailwind light text */
+}
+
+.ql-toolbar .ql-fill {
+    fill: #e2e8f0; /* Tailwind light text */
+}
+
+.ql-toolbar .ql-picker {
+    color: #e2e8f0; /* Tailwind light text */
+}
+
+.ql-toolbar .ql-picker-options {
+    background-color: #4a5568; /* Tailwind dark background */
+}
+
+.ql-toolbar .ql-picker-item:hover {
+    background-color: #718096; /* Tailwind darker hover background */
+}
