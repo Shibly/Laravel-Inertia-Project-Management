@@ -46,7 +46,7 @@
         }
 
         .content p {
-            color: #f1f1f1; /* blue */
+            color: #000000; /* blue */
         }
 
         .footer {

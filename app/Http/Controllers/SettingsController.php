@@ -8,6 +8,7 @@ use App\Models\Option;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -43,7 +44,10 @@ class SettingsController extends Controller
             ->with('success', 'SMTP credentials updated successfully.');
     }
 
-    public function getSmtpCredentials(): JsonResponse
+    /**
+     * @return void
+     */
+    public function getSmtpCredentials(): void
     {
         $smtpSettings = [
             'smtp_host' => get_option('smtp_host'),
@@ -55,6 +59,15 @@ class SettingsController extends Controller
             'from_email_address' => get_option('from_email_address'),
         ];
 
-        return response()->json($smtpSettings);
+
+        Config::set('mail.mailers.smtp.host', $smtpSettings['smtp_host']);
+        Config::set('mail.mailers.smtp.port', $smtpSettings['smtp_port']);
+        Config::set('mail.mailers.smtp.username', $smtpSettings['smtp_username']);
+        Config::set('mail.mailers.smtp.password', $smtpSettings['smtp_password']);
+        Config::set('mail.mailers.smtp.encryption', $smtpSettings['smtp_encryption']);
+        Config::set('mail.default', $smtpSettings['mail_driver']);
+        Config::set('mail.from.address', $smtpSettings['from_email_address']);
+
+        //return response()->json($smtpSettings);
     }
 }

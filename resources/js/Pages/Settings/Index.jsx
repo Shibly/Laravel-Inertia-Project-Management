@@ -131,7 +131,7 @@ export default function Index({auth}) {
                                         <div>
                                             <label htmlFor="smtp_encryption"
                                                    className="block text-sm font-medium text-gray-300">
-                                                SMTP Encryption (optional)
+                                                SMTP Encryption
                                             </label>
                                             <input
                                                 id="smtp_encryption"
