@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Option;
+use App\Models\Project;
+use App\Models\Task;
 
 
 function get_option($key)
@@ -42,4 +44,36 @@ if (!function_exists('set_option')) {
     }
 }
 
+
+if (!function_exists('getTasksSummary')) {
+    function getTasksSummary(): array
+    {
+        $statuses = ['pending', 'in_progress', 'completed', 'on_hold', 'cancelled', 'revision'];
+        $tasksSummary = [
+            'total_tasks' => Task::count(),
+        ];
+
+        foreach ($statuses as $status) {
+            $tasksSummary[$status] = Task::where('status', $status)->count();
+        }
+
+        return $tasksSummary;
+    }
+}
+
+
+if (!function_exists('getProjectsSummary')) {
+    function getProjectsSummary(): array
+    {
+        $statuses = ['pending', 'in_progress', 'completed', 'archived', 'on_hold'];
+        $projectsSummary = [
+            'total_projects' => Project::count()
+        ];
+        foreach ($statuses as $status) {
+            $projectsSummary[$status] = Project::where('status', $status)->count();
+        }
+
+        return $projectsSummary;;
+    }
+}
 

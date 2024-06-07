@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RolePermissionController;
@@ -8,15 +10,13 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReplyController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 
 Route::redirect('/', '/dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Custom application routes
     Route::resource('project', ProjectController::class);
@@ -50,7 +50,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('/settings/smtp', [SettingsController::class, 'storeSmtpCredentials'])->name('settings.smtp.store');
     Route::get('/settings/smtp', [SettingsController::class, 'getSmtpCredentials'])->name('settings.smtp.get');
-
 
 
 });
