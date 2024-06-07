@@ -28,7 +28,7 @@ export default function Dashboard({auth, warning, success}) {
                             <div className="flex justify-center space-x-6">
 
                                 {/*Projects Widget*/}
-                                <div className="bg-gray-800 text-white rounded-lg p-4 w-64">
+                                <div className="bg-gray-800 text-white rounded-lg p-4 flex-1">
                                     <div className="flex justify-between items-center">
                                         <h2 className="text-xl font-semibold">Projects</h2>
                                         <div className="text-right">
@@ -46,7 +46,7 @@ export default function Dashboard({auth, warning, success}) {
                                 </div>
 
                                 {/*Tasks Widget*/}
-                                <div className="bg-gray-800 text-white rounded-lg p-4 w-64">
+                                <div className="bg-gray-800 text-white rounded-lg p-4 flex-1">
                                     <div className="flex justify-between items-center">
                                         <h2 className="text-xl font-semibold">Tasks</h2>
                                         <div className="text-right">
@@ -64,7 +64,7 @@ export default function Dashboard({auth, warning, success}) {
                                 </div>
 
                                 {/*Clients Widget*/}
-                                <div className="bg-gray-800 text-white rounded-lg p-4 w-64">
+                                <div className="bg-gray-800 text-white rounded-lg p-4 flex-1">
                                     <div className="flex justify-between items-center">
                                         <h2 className="text-xl font-semibold">Clients</h2>
                                         <div className="text-right">
@@ -84,6 +84,7 @@ export default function Dashboard({auth, warning, success}) {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
