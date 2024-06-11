@@ -61,6 +61,11 @@
             color: #333;
         }
 
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -89,7 +94,7 @@
     </div>
     <div class="footer">
         <p>Thank you!</p>
-        <a href="{{ url('task.show', $task->id) }}" class="btn">View Task</a>
+        <a href="{{ url('task/', $task->id) }}" class="btn">View Task</a>
     </div>
 </div>
 </body>
