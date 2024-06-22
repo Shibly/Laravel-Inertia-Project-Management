@@ -94,7 +94,7 @@
     </div>
     <div class="footer">
         <p>Thank you!</p>
-        <a href="{{ url('task/', $task->id) }}" class="btn">View Task</a>
+        <a href="{{ url('task', $task->id) }}" class="btn">View Task</a>
     </div>
 </div>
 </body>
