@@ -4,6 +4,7 @@ import TextInput from "@/Components/TextInput";
 import TableHeading from "@/Components/TableHeading";
 import {TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP} from "@/constants.jsx";
 import {Link, router} from "@inertiajs/react";
+import Swal from 'sweetalert2';
 
 export default function TasksTable({
                                        warning,
@@ -14,8 +15,6 @@ export default function TasksTable({
                                        hideProjectColumn = false,
                                    }) {
     queryParams = queryParams || {};
-
-
 
     const searchFieldChanged = (name, value) => {
         if (value) {
@@ -48,10 +47,19 @@ export default function TasksTable({
     };
 
     const deleteTask = (task) => {
-        if (!window.confirm("Are you sure you want to delete the task?")) {
-            return;
-        }
-        router.delete(route("task.destroy", task.id));
+        Swal.fire({
+            title: 'Are you sure you want to delete the task?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("task.destroy", task.id));
+            }
+        });
     };
 
     return (
@@ -61,7 +69,6 @@ export default function TasksTable({
                     {warning}
                 </div>
             )}
-
 
             {success && (
                 <div className="bg-emerald-500 py-2 px-4 text-white rounded mb-4">
@@ -204,6 +211,5 @@ export default function TasksTable({
             </div>
             <Pagination links={tasks.meta.links}/>
         </>
-    )
-        ;
+    );
 }
