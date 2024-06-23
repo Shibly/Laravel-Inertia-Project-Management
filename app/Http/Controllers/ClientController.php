@@ -64,12 +64,16 @@ class ClientController extends Controller
         return to_route('client.index')->with('success', 'Client created successfully.');
     }
 
+
     /**
-     * Display the specified resource.
+     * @param Client $client
+     * @return Response|ResponseFactory
      */
-    public function show(Client $client)
+    public function show(Client $client): Response|ResponseFactory
     {
-        //
+        return inertia("Client/Show", [
+            'client' => new ClientResource($client),
+        ]);
     }
 
 
@@ -108,13 +112,10 @@ class ClientController extends Controller
         $name = $client->name;
 
         // Delete All the associated projects with the client first
-
         $client->projects()->delete();
-
         $client->delete();
-
         return to_route("client.index")->with('success', "Client $name  has been deleted.");
-
-
     }
+
+
 }
