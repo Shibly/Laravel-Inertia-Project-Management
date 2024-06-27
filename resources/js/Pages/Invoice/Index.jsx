@@ -7,6 +7,8 @@ import {INVOICE_STATUS_CLASS_MAP, INVOICE_STATUS_TEXT_MAP} from "@/constants.jsx
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import axios from 'axios';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faDownload, faEdit, faRecycle} from '@fortawesome/free-solid-svg-icons';
 
 const MySwal = withReactContent(Swal);
 
@@ -208,19 +210,19 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                                     <Link
                                                         href={route("invoice.edit", invoice.id)}
                                                         className="w-full px-2 py-1 bg-orange-500 text-white text-center font-medium text-sm rounded hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700">
-                                                        Edit
+                                                        <FontAwesomeIcon icon={faEdit}/>
                                                     </Link>
 
                                                     <button
                                                         onClick={() => downloadInvoice(invoice)}
                                                         className="w-full px-2 py-1 bg-green-500 text-white text-center font-medium text-sm rounded hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700">
-                                                        Download
+                                                        <FontAwesomeIcon icon={faDownload}/>
                                                     </button>
 
                                                     <button
                                                         onClick={() => deleteInvoice(invoice)}
                                                         className="w-full px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
-                                                        Delete
+                                                        <FontAwesomeIcon icon={faRecycle}/>
                                                     </button>
                                                 </div>
                                             </td>
