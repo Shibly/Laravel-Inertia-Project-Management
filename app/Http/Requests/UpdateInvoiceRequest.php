@@ -24,7 +24,7 @@ class UpdateInvoiceRequest extends FormRequest
     {
         return [
             'from' => 'required|string|max:255',
-            'to' => 'required|string|max:255',
+            'client_id' => 'required',
             'ship_to' => 'nullable|string|max:255',
             'date' => 'required|date',
             'payment_terms' => 'nullable|string|max:255',
