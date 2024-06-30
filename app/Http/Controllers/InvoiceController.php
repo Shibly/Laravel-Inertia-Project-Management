@@ -38,8 +38,11 @@ class InvoiceController extends Controller
         if (request("invoice_number")) {
             $query->where("invoice_number", "like", "%" . request("invoice_number") . "%");
         }
-        if (request("to")) {
-            $query->where("to", request("to"));
+
+        if (request("client_name")) {
+            $query->whereHas('client', function ($q) {
+                $q->where("name", "like", "%" . request("client_name") . "%");
+            });
         }
 
         $invoices = $query->orderBy($sortField, $sortDirection)
@@ -50,7 +53,6 @@ class InvoiceController extends Controller
             'invoices' => InvoiceResource::collection($invoices)
         ]);
     }
-
 
 
     /**

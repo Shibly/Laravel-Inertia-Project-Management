@@ -108,7 +108,6 @@ export default function Index({auth, invoices, queryParams = null, success}) {
         });
     };
 
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -146,10 +145,10 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                 />
                                 <TextInput
                                     className="w-1/2 mr-2"
-                                    defaultValue={queryParams.to}
-                                    placeholder="Bill To"
-                                    onBlur={(e) => searchFieldChanged("to", e.target.value)}
-                                    onKeyPress={(e) => onKeyPress("to", e)}
+                                    defaultValue={queryParams.client_name}
+                                    placeholder="Client Name"
+                                    onBlur={(e) => searchFieldChanged("client_name", e.target.value)}
+                                    onKeyPress={(e) => onKeyPress("client_name", e)}
                                 />
                             </div>
                             <div className="overflow-auto">
@@ -216,7 +215,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             key={invoice.id}>
                                             <td className="px-3 py-2">{invoice.id}</td>
                                             <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
-                                                <Link href={route("client.show", invoice.id)}>
+                                                <Link href={route("client.show", invoice.client_id)}>
                                                     {invoice.client_name}
                                                 </Link>
                                             </th>
