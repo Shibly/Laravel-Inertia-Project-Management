@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('client_id')->nullable(); // Moved this line before 'from'
             $table->string('from');
             $table->string('to');
             $table->string('ship_to')->nullable();
@@ -27,8 +28,12 @@ return new class extends Migration {
             $table->text('notes')->nullable();
             $table->text('terms')->nullable();
             $table->timestamps();
+
+            // Add foreign key constraint
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

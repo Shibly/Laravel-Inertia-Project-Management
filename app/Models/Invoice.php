@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Invoice extends Model
@@ -11,20 +12,8 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'from',
-        'to',
-        'ship_to',
-        'date',
-        'payment_terms',
-        'due_date',
-        'invoice_number',
-        'tax',
-        'discount',
-        'shipping',
-        'amount_paid',
-        'balance_due',
-        'notes',
-        'terms'
+        'client_id', 'from', 'to', 'ship_to', 'date', 'payment_terms', 'due_date', 'invoice_number',
+        'tax', 'discount', 'shipping', 'amount_paid', 'balance_due', 'notes', 'terms'
     ];
 
 
@@ -37,5 +26,13 @@ class Invoice extends Model
         return $this->hasMany(InvoiceItem::class);
     }
 
+
+    /**
+     * @return BelongsTo
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
 
 }

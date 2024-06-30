@@ -11,16 +11,8 @@ class Client extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'city',
-        'state',
-        'zip',
-        'country',
-        'telephone',
-        'address'
+        'name', 'email', 'city', 'state', 'zip', 'country', 'telephone', 'address'
     ];
-
 
     protected $table = 'clients';
     protected $primaryKey = 'id';
@@ -32,5 +24,13 @@ class Client extends Model
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
     }
 }
