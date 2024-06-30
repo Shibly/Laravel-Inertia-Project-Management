@@ -80,6 +80,9 @@ export default function Index({auth, invoices, queryParams = null, success}) {
             input: 'number',
             inputLabel: 'Amount',
             inputPlaceholder: `Enter payment amount (Balance due: ${invoice.balance_due})`,
+            inputAttributes: {
+                step: "0.01"
+            },
             showCancelButton: true,
             confirmButtonText: 'Submit',
             cancelButtonText: 'Cancel',
@@ -104,7 +107,6 @@ export default function Index({auth, invoices, queryParams = null, success}) {
             }
         });
     };
-
 
 
     return (

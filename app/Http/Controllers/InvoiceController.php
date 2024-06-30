@@ -9,10 +9,10 @@ use App\Models\Invoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
-use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
@@ -176,25 +176,32 @@ class InvoiceController extends Controller
      */
     public function receivePayment(Request $request, $id): JsonResponse
     {
+        // Validate the request amount to ensure it's a valid number and at least 0.01
         $request->validate([
             'amount' => 'required|numeric|min:0.01',
         ]);
 
+        // Find the invoice by ID or fail if not found
         $invoice = Invoice::findOrFail($id);
 
+        // Check if the provided amount exceeds the balance due
         if ($invoice->balance_due < $request->amount) {
             return response()->json(['message' => 'Amount exceeds balance due'], 422);
         }
 
+        // Increment the amount paid and decrement the balance due
         $invoice->amount_paid += $request->amount;
         $invoice->balance_due -= $request->amount;
 
+        // Update the invoice status to 'paid' if the balance due is zero
         if ($invoice->balance_due == 0) {
             $invoice->invoice_status = 'paid';
         }
 
+        // Save the updated invoice
         $invoice->save();
 
+        // Return a successful response
         return response()->json(['message' => 'Payment received successfully']);
     }
 
