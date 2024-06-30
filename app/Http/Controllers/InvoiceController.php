@@ -7,10 +7,12 @@ use App\Http\Requests\UpdateInvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
@@ -164,6 +166,36 @@ class InvoiceController extends Controller
         $pdf = Pdf::loadView('invoices.pdf', compact('invoice'))->setPaper('a4');
 
         return $pdf->download('invoice_' . $invoice->invoice_number . '.pdf');
+    }
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function receivePayment(Request $request, $id): JsonResponse
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0.01',
+        ]);
+
+        $invoice = Invoice::findOrFail($id);
+
+        if ($invoice->balance_due < $request->amount) {
+            return response()->json(['message' => 'Amount exceeds balance due'], 422);
+        }
+
+        $invoice->amount_paid += $request->amount;
+        $invoice->balance_due -= $request->amount;
+
+        if ($invoice->balance_due == 0) {
+            $invoice->invoice_status = 'paid';
+        }
+
+        $invoice->save();
+
+        return response()->json(['message' => 'Payment received successfully']);
     }
 
 

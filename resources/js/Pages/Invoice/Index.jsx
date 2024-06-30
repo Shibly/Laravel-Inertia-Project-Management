@@ -74,6 +74,39 @@ export default function Index({auth, invoices, queryParams = null, success}) {
         });
     };
 
+    const receivePayment = (invoice) => {
+        MySwal.fire({
+            title: 'Receive Payment',
+            input: 'number',
+            inputLabel: 'Amount',
+            inputPlaceholder: `Enter payment amount (Balance due: ${invoice.balance_due})`,
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            cancelButtonText: 'Cancel',
+            preConfirm: (amount) => {
+                if (!amount || isNaN(amount) || amount <= 0 || amount > invoice.balance_due) {
+                    MySwal.showValidationMessage(`Please enter a valid amount (max: ${invoice.balance_due})`);
+                } else {
+                    return amount;
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const amount = result.value;
+                axios.post(route("receivePayment", invoice.id), {amount})
+                    .then(response => {
+                        MySwal.fire('Success', 'Payment received successfully', 'success');
+                        router.get(route("invoice.index"), queryParams);
+                    })
+                    .catch(error => {
+                        MySwal.fire('Error', 'There was an error processing the payment', 'error');
+                    });
+            }
+        });
+    };
+
+
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -224,6 +257,16 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                                         className="w-full px-2 py-1 bg-red-500 text-white text-center font-medium text-sm rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
                                                         <FontAwesomeIcon icon={faRecycle}/>
                                                     </button>
+
+                                                    {invoice.balance_due > 0 && (
+                                                        invoice.invoice_status === 'pending' && (
+                                                            <button
+                                                                onClick={() => receivePayment(invoice)}
+                                                                className="w-full px-2 py-1 bg-blue-500 text-white text-center font-medium text-sm rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                                                                Receive Payment
+                                                            </button>
+                                                        )
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

@@ -26,6 +26,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('client', ClientController::class);
     Route::resource('invoice', InvoiceController::class);
     Route::get('invoice/{invoice}/download', [InvoiceController::class, 'download'])->name('invoice.download');
+    Route::post('/invoice/{id}/receive-payment', [InvoiceController::class, 'receivePayment'])->name('receivePayment');
+
 
 
     /**
