@@ -46,6 +46,10 @@ class RoleSeeder extends Seeder
             'name' => 'manage_settings'
         ]);
 
+        $permission_view_dashboard_widgets = Permission::create([
+            'name' => 'view_dashboard_widgets'
+        ]);
+
 
         $permissions_admin = [
             $permission_manage_users,
@@ -54,7 +58,8 @@ class RoleSeeder extends Seeder
             $permission_manage_invoices,
             $permission_manage_clients,
             $permission_manage_settings,
-            $permission_manage_own_tasks
+            $permission_manage_own_tasks,
+            $permission_view_dashboard_widgets
         ];
 
 
