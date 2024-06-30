@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/react';
+import SelectInput from "@/Components/SelectInput.jsx";
+import InputError from "@/Components/InputError.jsx";
 
-export default function Index({auth}) {
+export default function Index({auth, clients}) {
     const {data, setData, post, processing, errors} = useForm({
         from: '',
         to: '',
@@ -96,15 +98,23 @@ export default function Index({auth}) {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-700 dark:text-gray-300">Who is this invoice to?
+                                    <label className="block text-gray-700 dark:text-gray-300">Select Client
                                         (required)</label>
-                                    <input
-                                        type="text"
-                                        className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
-                                        required
-                                        value={data.to}
-                                        onChange={(e) => setData('to', e.target.value)}
-                                    />
+
+                                    <SelectInput
+                                        name="client_id"
+                                        id="client_id"
+                                        className="mt-1 block w-full"
+                                        onChange={(e) => setData("client_id", e.target.value)}>
+                                        <option value="">Select Client</option>
+                                        {clients.data.map((client) => (
+                                            <option value={client.id} key={client.id}>
+                                                {client.name}
+                                            </option>
+                                        ))}
+                                    </SelectInput>
+
+                                    <InputError message={errors.client_id} className="mt-2"/>
                                 </div>
 
                                 <div>

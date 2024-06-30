@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Http\Resources\ClientResource;
 use App\Http\Resources\InvoiceResource;
+use App\Models\Client;
 use App\Models\Invoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
@@ -67,7 +69,9 @@ class InvoiceController extends Controller
         }
 
 
-        return inertia("Invoice/Create");
+        return inertia("Invoice/Create", [
+            'clients' => ClientResource::collection(Client::all())
+        ]);
     }
 
 
@@ -118,7 +122,8 @@ class InvoiceController extends Controller
 
 
         return inertia("Invoice/Edit", [
-            'invoice' => new InvoiceResource($invoice->load('items'))
+            'invoice' => new InvoiceResource($invoice->load('items')),
+            'clients' => ClientResource::collection(Client::all())
         ]);
     }
 

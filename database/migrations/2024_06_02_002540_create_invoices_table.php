@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('client_id')->nullable(); // Moved this line before 'from'
             $table->string('from');
-            $table->string('to');
             $table->string('ship_to')->nullable();
             $table->date('date');
             $table->string('payment_terms')->nullable();

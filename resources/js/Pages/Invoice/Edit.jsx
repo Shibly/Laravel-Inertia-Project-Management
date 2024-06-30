@@ -1,24 +1,30 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import {Head, useForm} from '@inertiajs/react';
+import SelectInput from "@/Components/SelectInput.jsx";
+import InputError from "@/Components/InputError.jsx";
 
-export default function Edit({ auth, invoice }) {
-    const { data, setData, put, processing, errors } = useForm({
+export default function Edit({auth, invoice, clients}) {
+
+    console.log(clients);
+
+    const {data, setData, put, processing, errors} = useForm({
         from: invoice.from,
-        to: invoice.to,
-        ship_to: invoice.ship_to,
-        date: invoice.date,
-        payment_terms: invoice.payment_terms,
-        due_date: invoice.due_date,
-        invoice_number: invoice.invoice_number,
-        notes: invoice.notes,
-        terms: invoice.terms,
-        tax: invoice.tax,
-        discount: invoice.discount,
-        shipping: invoice.shipping,
-        amount_paid: invoice.amount_paid,
-        balance_due: invoice.balance_due,
-        items: invoice.items.map(item => ({ ...item, amount: item.quantity * item.rate })),
+        client_id: invoice.client_id || "",
+        ship_to: invoice.ship_to ||"",
+        date: invoice.date ||"",
+        payment_terms: invoice.payment_terms||"",
+        due_date: invoice.due_date||"",
+        invoice_number: invoice.invoice_number||"",
+        notes: invoice.notes||"",
+        terms: invoice.terms||"",
+        tax: invoice.tax||"",
+        discount: invoice.discount||"",
+        shipping: invoice.shipping||"",
+        amount_paid: invoice.amount_paid||"",
+        balance_due: invoice.balance_due||"",
+        items: invoice.items.map(item => ({...item, amount: item.quantity * item.rate})),
+        _method: "PUT",
     });
 
     useEffect(() => {
@@ -28,7 +34,7 @@ export default function Edit({ auth, invoice }) {
     const handleAddItem = () => {
         setData('items', [
             ...data.items,
-            { description: '', quantity: 1, rate: 0, amount: 0 },
+            {description: '', quantity: 1, rate: 0, amount: 0},
         ]);
     };
 
@@ -39,7 +45,7 @@ export default function Edit({ auth, invoice }) {
     const handleItemChange = (index, field, value) => {
         const newItems = data.items.map((item, i) => {
             if (i === index) {
-                const newItem = { ...item, [field]: value };
+                const newItem = {...item, [field]: value};
                 if (field === 'quantity' || field === 'rate') {
                     newItem.amount = newItem.quantity * newItem.rate;
                 }
@@ -73,9 +79,10 @@ export default function Edit({ auth, invoice }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Edit Invoice</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Edit
+                Invoice</h2>}
         >
-            <Head title="Edit Invoice" />
+            <Head title="Edit Invoice"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-10">
@@ -83,7 +90,8 @@ export default function Edit({ auth, invoice }) {
                         <form onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                                 <div>
-                                    <label className="block text-gray-700 dark:text-gray-300">Who is this invoice from? (required)</label>
+                                    <label className="block text-gray-700 dark:text-gray-300">Who is this invoice from?
+                                        (required)</label>
                                     <input
                                         type="text"
                                         className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
@@ -94,14 +102,25 @@ export default function Edit({ auth, invoice }) {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-700 dark:text-gray-300">Who is this invoice to? (required)</label>
-                                    <input
-                                        type="text"
-                                        className="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm"
-                                        required
-                                        value={data.to}
-                                        onChange={(e) => setData('to', e.target.value)}
-                                    />
+                                    <label className="block text-gray-700 dark:text-gray-300">Select Client
+                                        (required)</label>
+
+                                    <SelectInput
+                                        name="client_id"
+                                        id="client_id"
+                                        className="mt-1 block w-full"
+                                        value={data.client_id} // Add this line to set the selected value
+                                        onChange={(e) => setData("client_id", e.target.value)}>
+                                        <option value="">Select Client</option>
+                                        {clients.data.map((client) => (
+                                            <option value={client.id} key={client.id}>
+                                                {client.name}
+                                            </option>
+                                        ))}
+                                    </SelectInput>
+
+
+                                    <InputError message={errors.client_id} className="mt-2"/>
                                 </div>
 
                                 <div>
