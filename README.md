@@ -28,11 +28,51 @@ To get started, follow these steps:
 
 3. **Create a MySQL database** and update the `.env` file with your database credentials.
 
-4. **Run the following commands in your terminal**:
+4. **Install Laravel packages**:
 
-    ```php
+    ```bash
+    composer update
+    ```
+
+5. **Install Node dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+6. **Run the migrations and seed the database**:
+
+    ```bash
     php artisan migrate
     php artisan db:seed
+    ```
+
+7. **Compile the JSX files**:
+
+    ```bash
+    npm run build
+    ```
+
+   or run in development mode:
+
+    ```bash
+    npm run dev
+    ```
+
+8. **Serve the application**:
+
+   Open two terminal tabs and run the following commands in separate tabs:
+
+   **Tab 1**:
+
+    ```bash
+    php artisan serve
+    ```
+
+   **Tab 2**:
+
+    ```bash
+    npm run dev
     ```
 
 ## Demo Login
