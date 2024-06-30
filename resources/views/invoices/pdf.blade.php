@@ -125,7 +125,7 @@
         <tr class="information">
             <td colspan="2">
                 <strong>Bill To:</strong><br>
-                {{$invoice->to}}<br>
+                {{$invoice->client->name}}<br>
 
             </td>
             <br><br><br><br>
