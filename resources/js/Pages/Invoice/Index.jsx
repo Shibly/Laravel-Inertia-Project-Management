@@ -167,11 +167,11 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                         </TableHeading>
 
                                         <TableHeading
-                                            name="to"
+                                            name="client_name"
                                             sort_field={queryParams.sort_field}
                                             sort_direction={queryParams.sort_direction}
                                             sortChanged={sortChanged}>
-                                            Bill To
+                                            Client Name
                                         </TableHeading>
 
                                         <TableHeading
@@ -217,7 +217,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             <td className="px-3 py-2">{invoice.id}</td>
                                             <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
                                                 <Link href={route("invoice.show", invoice.id)}>
-                                                    {invoice.to}
+                                                    {invoice.client_name}
                                                 </Link>
                                             </th>
 

@@ -26,14 +26,11 @@ class InvoiceController extends Controller
 
     public function index(): Response|ResponseFactory|RedirectResponse
     {
-
         if (!Auth::user()->can('manage_invoices')) {
             return to_route('dashboard')->with('warning', 'You do not have permission to access this page.');
         }
 
-
-        $query = Invoice::query();
-
+        $query = Invoice::with('client');
 
         $sortField = request("sort_field", 'created_at');
         $sortDirection = request("sort_direction", "desc");
@@ -45,16 +42,15 @@ class InvoiceController extends Controller
             $query->where("to", request("to"));
         }
 
-
         $invoices = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)
             ->onEachSide(1);
-
 
         return inertia("Invoice/Index", [
             'invoices' => InvoiceResource::collection($invoices)
         ]);
     }
+
 
 
     /**
