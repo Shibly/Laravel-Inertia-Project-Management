@@ -216,7 +216,7 @@ export default function Index({auth, invoices, queryParams = null, success}) {
                                             key={invoice.id}>
                                             <td className="px-3 py-2">{invoice.id}</td>
                                             <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
-                                                <Link href={route("invoice.show", invoice.id)}>
+                                                <Link href={route("client.show", invoice.id)}>
                                                     {invoice.client_name}
                                                 </Link>
                                             </th>
