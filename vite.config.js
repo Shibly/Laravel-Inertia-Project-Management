@@ -10,4 +10,8 @@ export default defineConfig({
         }),
         react(),
     ],
+    server: {
+        host: '0.0.0.0',  // Listen on all interfaces
+        port: 5173,       // Use Vite's default port
+    },
 });
