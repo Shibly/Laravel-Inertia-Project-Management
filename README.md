@@ -111,13 +111,11 @@ To get started, follow these steps:
 
     ```bash
     docker-compose run --rm app php artisan migrate
+   docker-compose run --rm app php artisan db:seed
     ```
 
-    ```bash
-    docker-compose run --rm app php artisan db:seed
-    ```
 
-5. **Create a new controller**:
+1. **Create a new controller**:
 
     ```bash
     docker-compose run --rm app php artisan make:controller ExampleController
