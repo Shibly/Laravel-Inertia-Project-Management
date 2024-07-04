@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./docker/php
+    volumes:
+      - ./:/var/www
+    networks:
+      - app-network
+
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  database:
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  npm:
+    image: node:22.3
+    container_name: npm
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    entrypoint: [ "npm" ]
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    entrypoint: [ "composer" ]
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

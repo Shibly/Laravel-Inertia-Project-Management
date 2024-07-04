@@ -1,6 +1,7 @@
 # Laravel Project Management
 
-Laravel Project Management is a lightweight project management solution built with Laravel, React, and Inertia.js. This tool offers a comprehensive suite of features to streamline your project management tasks efficiently.
+Laravel Project Management is a lightweight project management solution built with Laravel, React, and Inertia.js. This
+tool offers a comprehensive suite of features to streamline your project management tasks efficiently.
 
 ## Features
 
@@ -79,3 +80,41 @@ To get started, follow these steps:
 
 - **Email**: `shibly.phy@gmail.com`
 - **Password**: `123456789`
+
+## Docker Instructions
+
+1. **Build and start the containers**:
+
+    ```bash
+    docker-compose up --build
+    ```
+
+2. **Running Composer and NPM commands**:
+
+    ```bash
+    docker-compose run --rm composer install
+    docker-compose run --rm npm install
+    ```
+
+3. **Adjust the `.env` file**:
+
+    ```plaintext
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel_project_management
+    DB_USERNAME=laravelprojectmanagement
+    DB_PASSWORD=1234
+    ```
+
+4. **Run PHP Artisan commands**:
+
+    ```bash
+    docker-compose run --rm app php artisan migrate
+    ```
+
+5. **Create a new controller**:
+
+    ```bash
+    docker-compose run --rm app php artisan make:controller ExampleController
+    ```
