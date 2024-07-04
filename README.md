@@ -113,6 +113,10 @@ To get started, follow these steps:
     docker-compose run --rm app php artisan migrate
     ```
 
+    ```bash
+    docker-compose run --rm app php artisan db:seed
+    ```
+
 5. **Create a new controller**:
 
     ```bash
