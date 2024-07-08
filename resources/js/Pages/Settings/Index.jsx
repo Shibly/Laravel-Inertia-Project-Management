@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/react';
 import axios from 'axios';
 
-export default function Index({auth}) {
+export default function Index({auth, options}) {
     const {data, setData, success, post, reset, errors} = useForm({
         smtp_host: '',
         smtp_port: '',

@@ -44,10 +44,11 @@ class SettingsController extends Controller
             ->with('success', 'SMTP credentials updated successfully.');
     }
 
+
     /**
-     * @return void
+     * @return JsonResponse
      */
-    public function getSmtpCredentials(): void
+    public function getSmtpCredentials(): JsonResponse
     {
         $smtpSettings = [
             'smtp_host' => get_option('smtp_host'),
@@ -68,6 +69,6 @@ class SettingsController extends Controller
         Config::set('mail.default', $smtpSettings['mail_driver']);
         Config::set('mail.from.address', $smtpSettings['from_email_address']);
 
-        //return response()->json($smtpSettings);
+        return response()->json($smtpSettings);
     }
 }
