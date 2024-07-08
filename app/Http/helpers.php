@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Invoice;
 use App\Models\Option;
 use App\Models\Project;
 use App\Models\Task;
@@ -76,4 +77,27 @@ if (!function_exists('getProjectsSummary')) {
         return $projectsSummary;;
     }
 }
+
+if (!function_exists('getCurrentMonthPaidInvoiceAmount')) {
+    function getCurrentMonthPaidInvoiceAmount(): array
+    {
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
+        $paidInvoices = Invoice::where('invoice_status', 'paid')
+            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear);
+
+        $totalPaidAmount = $paidInvoices->sum('amount_paid');
+        $invoiceCount = $paidInvoices->count();
+
+        return [
+            'invoice_count' => $invoiceCount,
+            'total_paid_amount' => $totalPaidAmount,
+        ];
+    }
+}
+
+
+
 

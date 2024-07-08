@@ -17,6 +17,7 @@ class DashboardController extends Controller
         return inertia('Dashboard', [
             'tasksSummary' => getTasksSummary(),
             'projectsSummary' => getProjectsSummary(),
+            'currentMonthPaidAmount' => getCurrentMonthPaidInvoiceAmount()
         ]);
     }
 }
