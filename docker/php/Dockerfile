@@ -9,7 +9,7 @@ ENV PHP_EXTRA_CONFIGURE_ARGS \
   --enable-zip \
   --enable-calendar
 
-# Install some must-haves
+# Install dependencies and PHP extensions
 RUN apt-get update && \
     apt-get install -y \
     vim \
@@ -21,24 +21,17 @@ RUN apt-get update && \
     libpng-dev \
     libfreetype6-dev \
     libcurl4-openssl-dev \
-    libldap2-dev
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
+    libldap2-dev \
+    libbz2-dev \
+    libsodium-dev \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
     zip \
     unzip
 
-RUN docker-php-ext-configure \
-      gd --with-freetype --with-jpeg
-
-# Install PHP extensions
-RUN docker-php-ext-install \
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) \
     pdo_mysql \
     mbstring \
     exif \
@@ -51,32 +44,16 @@ RUN docker-php-ext-install \
     pdo \
     soap \
     xml \
-    zip
+    zip \
+    bz2 \
+    sodium && \
+    docker-php-ext-enable gd
 
-
-RUN docker-php-ext-enable gd
-
-#RUN apt-get install php-imap php-mcrypt php-pecl-imagick php-pspell php-tidy
-
-# install xdebug
-RUN pecl install xdebug
-
-## Prepare PHP environment
-#COPY config/php/php-fpm.conf /etc/php-fpm.conf
-#COPY config/php/www.conf /etc/php-fpm.d/www.conf
-#COPY config/php/php.ini /usr/local/etc/php/php.ini
-#COPY config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+# Install xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Install Composer
-#RUN curl -sS https://getcomposer.org/installer | php
-#RUN mv composer.phar /usr/bin/composer
-#RUN composer --version
-#
-## Install Node.js
-#RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-#RUN apt-get install -y nodejs
-#RUN node -v
-#RUN npm -v
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
