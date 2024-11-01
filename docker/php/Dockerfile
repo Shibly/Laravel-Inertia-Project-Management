@@ -1,3 +1,21 @@
+# docker/php/Dockerfile
+FROM node:22.3 as node-builder
+
+# Set working directory
+WORKDIR /var/www
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Build assets
+RUN npm run build
+
 FROM php:8.3-fpm
 
 ENV PHP_EXTRA_CONFIGURE_ARGS \
@@ -58,8 +76,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Define work directory
+# Set working directory
 WORKDIR /var/www
+
+# Copy application code
+COPY . /var/www
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www
 
 # Expose ports
 EXPOSE 9000

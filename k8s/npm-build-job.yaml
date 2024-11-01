@@ -1,0 +1,21 @@
+# k8s/npm-build-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: npm-build
+spec:
+  template:
+    spec:
+      containers:
+        - name: npm-build
+          image: node:22.3
+          command: ["sh", "-c", "npm install && npm run build"]
+          workingDir: /var/www
+          volumeMounts:
+            - name: app-code
+              mountPath: /var/www
+      restartPolicy: OnFailure
+      volumes:
+        - name: app-code
+          hostPath:
+            path: /path/to/your/app  # Replace with your actual path
