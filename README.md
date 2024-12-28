@@ -92,7 +92,7 @@ To get started, follow these steps:
 2. **Running Composer and NPM commands**:
 
     ```bash
-    docker-compose run --rm composer install
+    docker compose exec app composer update
     docker-compose run --rm npm install
     ```
 
