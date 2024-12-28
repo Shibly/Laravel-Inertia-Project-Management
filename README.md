@@ -93,7 +93,6 @@ To get started, follow these steps:
 
     ```bash
     docker compose exec app composer update
-    docker-compose run --rm npm install
     ```
 
 3. **Adjust the `.env` file**:
