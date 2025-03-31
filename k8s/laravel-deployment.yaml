@@ -1,54 +1,53 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: laravel
   namespace: laravel-pm
-
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: laravel
   template:
     metadata:
       labels:
-        app: mysql
+        app: laravel
     spec:
       containers:
-        - name: mysql
-          image: quantiklab/laravel-pm-database:latest
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "rootpassword"
-            - name: MYSQL_DATABASE
-              value: "laravel_db"
-            - name: MYSQL_USER
-              value: "laravel_user"
-            - name: MYSQL_PASSWORD
-              value: "securepassword"
+        - name: laravel
+          image: quantiklab/laravel-pm-app:latest
           ports:
-            - containerPort: 3306
+            - containerPort: 9000
+          env:
+            - name: DB_HOST
+              value: "mysql"
+            - name: DB_DATABASE
+              value: "laravel_db"
+            - name: DB_USERNAME
+              value: "laravel_user"
+            - name: DB_PASSWORD
+              value: "securepassword"
           volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: mysql-storage
+            - mountPath: /var/www/storage
+              name: laravel-storage
       volumes:
-        - name: mysql-storage
+        - name: laravel-storage
           persistentVolumeClaim:
             claimName: laravel-pm-pvc
 
 
-
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: laravel
   namespace: laravel-pm
 spec:
   selector:
-    app: mysql
+    app: laravel
 
   ports:
     - protocol: "TCP"
-      port: 3306
-      targetPort: 3306
+      port: 9000
+      targetPort: 9000

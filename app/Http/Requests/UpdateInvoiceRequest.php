@@ -38,7 +38,7 @@ class UpdateInvoiceRequest extends FormRequest
             'notes' => 'nullable|string',
             'terms' => 'nullable|string',
             'items' => 'required|array',
-            'items.*.description' => 'required|string|max:255',
+            'items.*.description' => 'required|string',
             'items.*.quantity' => 'required|numeric|min:0',
             'items.*.rate' => 'required|numeric|min:0',
             'items.*.amount' => 'required|numeric|min:0',
